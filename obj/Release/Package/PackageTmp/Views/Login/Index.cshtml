@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = "";
+}
+<head>
+    <title>Log in</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+
+    <script>
+        $(document).ready(function () {
+            $("#loginButton").click(function () {
+                
+                var username = $("#username").val();
+                var password = $("#password").val();
+                sessionStorage.setItem('id', username);
+                $.ajax({
+                    type: "POST",
+                    url: '/Login/Authenticate',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+
+                    success: function (result) {
+                        location.href ="/StudentProfile/GetStudentProfile"
+                    }
+
+                });
+            });
+
+        });
+    </script>
+</head>
+    
+    <div class="container" style="text-align:center">
+        <img src="~/Media/Image/ausparkICON.png" width="320" height="240" style="background:center center no-repeat" />
+        <br />
+        <div class="panel-body">
+            <form role="form">
+                <div class="form-group">
+                    <input class="form-control" placeholder="USERNAME" id="username" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="PASSWORD" id="password" />
+                </div>
+                <br />
+                <button class="btn btn-danger btn-block" id="loginButton">Login</button>
+            </form>
+        </div>
+
+    </div>
+
+
+

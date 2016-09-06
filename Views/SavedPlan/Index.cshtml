@@ -1,0 +1,195 @@
+﻿@using SeniorProject.Models
+@model List<StudentSavedPlan>
+
+@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+@{
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+    string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    int count = 0;
+    int counter = 1;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Plan</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+
+    <script>
+        function checkRegistration(result) {
+            var resultMessage = result.split("\n");
+            console.log(result);
+            console.log(resultMessage);
+            var registrationResult = "";
+            if (resultMessage[0] === "Success") {
+                alert("Succeeded");
+                registrationResult = "The following course(s) have been registered \n";
+                registrationResult += resultMessage[1];
+            }
+            else if (resultMessage[0] === "Fail") {
+                var noSeatGod = "";
+                registrationResult = "You need to select other sections for the following course(s)";
+                noSeatGod = resultMessage[1];
+                sessionStorage.noSeatGod = noSeatGod;
+                sessionStorage.godSchedule = resultMessage[2];
+                sessionStorage.updatedGodSchedule = resultMessage[2];
+                alert(registrationResult);
+                window.location.href = '/Recommend';
+            }
+        }
+        function EditSchedule(result) {
+           // alert("Edit kubz");
+            var data = result.split(":");
+            sessionStorage.coursecode = data[0];
+            sessionStorage.coursename = data[1];
+            sessionStorage.god = data[2];
+            window.location.href = '/AddCourse';
+        }
+        var stringja = "";
+        $(document).ready(function () {
+            $("#spinner").hide();
+
+            $(document).on('click', 'div.parentSectionDetail', function () {
+                if($(this).next().css('display') == 'none')
+                    $(this).next().css('display', 'inline');
+                else
+                    $(this).next().css('display', 'none');
+            });
+
+            $(document).on('click', 'div.Subjects', function () {
+
+                var index = $(this).parent("div.firstChild").children("div.indexCounter").text();
+                var arr = index.split(' ');
+                index = arr[1] - 1;
+                $.ajax({
+                    type: "POST",
+                    url: '/SavedPlan/GetSchedule',
+                    data: { index: index },
+                    beforeSend: function () {
+                        $("#spinner").show();
+                    },
+                    success: function (result) {
+                        $("#spinner").hide();
+
+                        $("#Schedules").html(result);
+                    }
+                });
+            });
+            $(document).on('click', 'div.moreFriendsDiv', function () {
+                var modal = $(this).parent().siblings('div.sectionModal');
+                //alert($(modal).attr('class'));
+                $(modal).modal('show');
+               
+            });
+            $(document).on('click', 'div.DeletePlan', function () {
+                if (confirm("Are you sure you want to delete the plan?") == true) {
+                    var index = $(this).parent("div.firstChild").children("div.indexCounter").text();
+                    var arr = index.split(' ');
+                    index = arr[1] - 1;
+                    $.ajax({
+                        type: "POST",
+                        url: '/SavedPlan/DeletePlan',
+                        data: { index: index },
+                        success: function (result) {
+                            alert(result);
+                            window.location = "/SavedPlan";
+                                }
+                            });
+                } else {
+                }
+            });
+
+            $('#Schedules').on('click', 'button.delBtn', function () {
+                var counter = $(this).parent().prev().prev().text();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/SavedPlan/DeleteSchedule',
+                    data: { index: counter },
+                    success: function (result) {
+                        alert(result);
+                        window.location = "/SavedPlan";
+                    }
+                });
+            });
+
+            $('#Schedules').on('click', 'button.editBtn', function () {
+                var string = $(this).parent().next().text();
+                var data = string.split(":");
+                sessionStorage.coursecode = data[0];
+                sessionStorage.coursename = data[1];
+                sessionStorage.god = data[2];
+                window.location.href = '/AddCourse';
+            });
+
+
+            $.ajax({
+                type: "POST",
+                url: '/SavedPlan/GetPlanList',
+                success: function (result) {
+                    $("#PlanListResult").html(result);
+                }
+            });
+
+            $('.FAmount').click(function () {
+                $(this).next().modal('show');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container" style="width:1200px;margin:0 auto;">
+        <img src="~/Media/Image/spinner.gif" alt="Loading..." id="spinner" />
+
+        <div style="float:left;width:300px;margin-left:30px;">
+            <div style="float:left;width:300px;height:110px;margin-top:10px;overflow:auto;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+                <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                    <img class="thumbnail" src="http://graph.facebook.com/@Session["StudentProfileFacebookID"]/picture?type=normal" width="80" height="80" />
+                </div>
+                <div style="float:right;margin-top:15px;margin-left:10px;width:200px;height:20px;font-weight:bold;color:black;">
+                    @Session["StudentProfileName"]
+                </div>
+                <div style="float:left;margin-left:10px; margin-top:10px;width:200px;height:20px;font-size:12px;color:gray;">
+                    @Session["StudentProfileFaculty"] [@Session["StudentProfileMajor"]]
+                </div>
+            </div>
+            <div id="toget" style="float:left;width:300px;height:380px;margin-top:10px;overflow:auto;clear:left;">
+                <div id="PlanListResult">
+                    @foreach (StudentSavedPlan courselist in Model)
+                    {
+                        <div class="firstChild" style="float:left;width:250px;margin-left:25px;margin-top:10px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;font-family:'Segoe UI', Times, serif;font-size:14px;">
+                            <div class="indexCounter" style="float:left;width:220px;font-size:20px;color:white;background-color:red;display:inline;">Plan @counter</div>
+                            <div class="DeletePlan" style="float:left;width:30px;font-size:20px;color:white;background-color:red;"><img src="~/Media/Image/trash.png" width="20px" height="22px" style="padding-bottom:5px;margin:0 auto;" /></div>
+                            @{count = 0;}
+                            <div class="Subjects" style="float:left;width:250px;">
+                                @foreach (string courseCode in courselist.PlanList.Split(';'))
+                                {
+                                    <div>
+                                        <div style="float:left;width:10px;height:15px;background-color:@color[count];margin-top:12.5px;margin-left:5px;">
+                                        </div>
+                                        <div style="float:left;width:60px;margin-top:10px;margin-left:5px;">@courseCode</div>
+                                        <div style="float:left;width:165px;margin-top:10px;margin-left:5px;font-size:14px;"> @courselist.CourseNameList[count]</div>
+                                    </div>
+                                    count += 1;
+                                }
+                            </div>
+                            @{counter += 1;}
+
+                            <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px;" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="float:left;width:820px;background-color:white;height:500px;margin-left:10px;margin-top:10px;position:relative;font-family:'Segoe UI', Times, serif;font-size:16px;overflow:auto;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;">
+            <div id="Schedules"></div>
+        </div>
+    </div>
+</body>
+</html>

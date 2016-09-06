@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="~/Content/Schedule.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/Main.css">*@
+    <meta name="viewport" content="width=device-width" />
+    @*<title>@ViewBag.Title</title>*@
+
+
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <style>
+        h1 {
+            color: white;
+            margin-top: 10%;
+        }
+
+        h4 {
+            color: white;
+            padding-top: 20px;
+            padding-right:5px;
+        }
+
+        .heart {
+            opacity: 0.4;
+        }
+
+        .MyCssClass {
+            background-image: url('../Media/Image/heartIcon.png');
+            background-size: 25px 25px;
+            height:25px;
+            width:25px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("a").hover(function () {
+                $(this).animate({
+
+                    opacity: 0.4
+                });
+
+            }, function () {
+                $(this).animate({
+
+                    opacity: 1
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default" style="background-color:#F33A3A; height:100px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" margin-left:30%"><h1></h1></a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                           <h4> Profile <span class="caret"></span></h4>
+                            
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/StudentProfile/GetStudentProfile?studentID=@HttpContext.Current.Session["StudentId"].ToString()">Student Profile</a></li>
+                            <li><a href="/AcademicRecord/GetAcademicRecord?studentCode=@HttpContext.Current.Session["StudentId"].ToString()">Academic Record</a></li>
+                            <li><a href="/Schedule">Schedules</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <h4> Registration <span class="caret"></span></h4>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/SavedPlan">Plans</a></li>
+                            <li><a href="/AddCourse">Registration Planner</a></li>
+                            <li><a href="/Recommend">Section Suggestion</a></li>
+                        </ul>
+                    </li>
+                 
+                    
+                    <li><a href="/Friends/"><h4>Friend</h4></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

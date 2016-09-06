@@ -1,0 +1,111 @@
+﻿@using SeniorProject.Models
+@model List<StudentSection>
+
+    @*<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   *@
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('tr.section').find('td.checkboxTd').find('input.checkboxInput').click(function () {
+                var coursecode = $(this).parent().parent().find('td.courseCode').text();
+                var sectionnumber = $(this).parent().parent().find('td.secnum').text();
+                $.ajax({
+                    type: "GET",
+                    url: '/SectionSelector/GetStudentSectionDetailJSON',
+                    data: {
+                        year: '2015',
+                        semester: '1',
+                        courseCode: coursecode,
+                        sectionNumber:sectionnumber 
+                    },
+                    success: function (result) {
+                        var jString = JSON.stringify(result);
+                                               
+                    }
+                });
+               
+                
+            });
+            $('#btnConfirm').click(function () {
+                var coursecode;
+                var coursesName = "";
+                //var coursesName= sessionStorage.getItem("coursesName");
+                var selectedSections = "";
+                var god = "";
+                $('tr.section').each(function () {
+                    if ($(this).find('td.checkboxTd').find('input.checkboxInput').is(':checked')) {
+                        coursecode = $(this).find('td.courseCode').text();
+                        coursesName = $(this).find('td.secname').text();
+                        selectedSections += $(this).find('td.secnum').text() + ",";
+                    }
+                });
+
+                //alert(coursecode + "  " + selectedSections.substr(0, selectedSections.length - 1));
+                selectedSections = selectedSections.substr(0,selectedSections.length-1);
+                $.ajax({
+                    type: "POST",
+                    url: '/SectionSelector/AddSubject',
+                    data: {
+                        CourseCode: coursecode,
+                        selectedsections:selectedSections
+                    },
+                    success: function (result) {
+
+                        if (sessionStorage.getItem("coursecode") == "") {
+                            sessionStorage.setItem("coursecode", coursecode);
+                            sessionStorage.setItem("coursename", coursesName);
+                        } else {
+                            
+                            var temp = sessionStorage.getItem("coursecode").toString().split(',');
+                            var isExisted = false;
+                            for (var i = 0 ; i < temp.length; ++i) {
+                                if (temp[i] == coursecode) {
+                                    isExisted = true;
+                                    break;
+                                }
+
+                            }
+
+                            if (!isExisted) {
+                                sessionStorage.setItem("coursecode", sessionStorage.getItem('coursecode') + "," + coursecode);
+                                sessionStorage.setItem("coursename", sessionStorage.getItem('coursename') + "," + coursesName);
+                            }
+                        }
+                        alert(result)
+                        sessionStorage.setItem("god", result);
+                        location.href = "/AddCourse";
+                    }
+                });
+                
+            });
+
+        });
+    </script>
+    <table class="table table-hover">
+
+
+            <tr><th><button id="btnConfirm">Confirm</button></th><th>section number</th><th>Study Date</th><th style="visibility:collapse; width:1px;">middate</th>
+            @foreach (StudentSection sec in Model)
+            {
+            <tr class= "section">
+
+                <td class="checkboxTd"><input type="checkbox" class="checkboxInput"></td>
+                <td class="courseCode">@sec.CourseCode</td>
+
+                <td class="secnum">@sec.SectionNumber</td>
+                <td class="secname" style="display:none">@sec.CourseName</td>
+                 
+                <td >
+                    @foreach (StudentSectionDetail det in sec.SectionDetails)
+                    {   
+                     @det.DayNum
+                    }
+                </td>
+                
+            </tr>
+            }
+
+        </table>
+

@@ -1,0 +1,37 @@
+﻿@using SeniorProject.Models
+@model StudentAcademicRecord
+
+@{
+    ViewBag.Title = "AcademicRecords";
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+<div class="container" style="margin:0 auto;width:1200px;position:relative;font-family:'Segoe UI', Times, serif;font-size:16px;">
+        @foreach (AcademicYear academic in Model.AcademicRecords)
+        {
+            <div style="width: 800px; margin:0 auto;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;">
+
+                <div style="float: left;width: 500px;height: 40px;margin-left: 25px;margin-top: 10px;margin-bottom: 20px; font-size:20px; color:red; font-weight:bold;">
+                    Semester @academic.Semester / @academic.Year
+                </div>
+
+                <div style="float: right;width: 100px;height: 30px;margin-top:10px;margin-right: 40px;margin-bottom: 10px;text-align: center;color:white;font-weight:bold;background-color:gray;border-radius: 7px;line-height:25px">
+                    @academic.TotalGrade
+                </div>
+
+                @foreach (AcademicRecord record in academic.Records)
+                {
+                    <div style="float: left;width: 500px;height: 25px;margin-left: 25px;color:red;">
+                        @record.CourseCode
+                    </div>
+                    <div style="float: left;width: 500px;height: 25px;margin-left: 25px;">
+                        @record.CourseName
+                    </div>
+                    <div style="float: right;width: 100px;height: 30px;margin-right: 40px;text-align: center;vertical-align:middle;padding-bottom:20px;font-size:16px;line-height:0px;color:blue;font-weight:bold;">
+                        @record.FinalGrade
+                    </div>
+                    <hr style="width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:5px" />
+                }
+            </div>
+        }
+</div>

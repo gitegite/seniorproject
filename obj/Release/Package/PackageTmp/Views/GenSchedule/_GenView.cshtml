@@ -1,0 +1,410 @@
+﻿@using SeniorProject.Models
+@model List<TimetableList>
+
+@{
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+    string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    int[] starttime = { 0900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+    double startdiff = 0;
+    int daynum = 1;
+    int actualstart = 0;
+    int count = 0;
+    int index = 0;
+    int scheduleNum = count + 1;
+    string planlist = "";
+    string god = "";
+    int counter = 1;
+    int schedule_index = 1;
+    int grouping = 0;
+}
+@*<script>
+        $('#Schedules').on('click', 'button.duplicateBtn', function () {
+            var counter =
+            $(this).prev('div.scheIndex').text();
+            alert(counter);
+        });
+    </script>*@
+
+<script>
+    function register(god) {
+        alert(god);
+    }
+</script>
+
+
+
+<div style="width:770px;margin-top:5px;margin-left:50px;" id="FavSection">
+
+</div>
+@foreach (TimetableList List in Model)
+{
+    <div style="overflow:hidden;width:820px;white-space:nowrap;">
+        @foreach (Timetable schedule in List.getTimetable())
+        {
+            god = "";
+            planlist = "";
+            <div class="scheIndexPar" id="@schedule_index" style="width:815px;background-color:white;height:375px;margin:0 auto;margin-bottom:10px;position:relative;font-family:'Segoe UI', Times, serif;font-size:14px;overflow:auto;display:inline-block;">
+                <div class="scheIndex" style="display:none">@counter</div>
+                @{/*Table and draw schedule*/}
+                <div style="float:left;width:500px; height:330px; margin:0 auto; margin-top:10px; margin-left:25px;position:relative">
+                    <table style="width:450px; height:40px;opacity:0.7;margin-left:25px;" frame="below">
+                        <tr>
+                            <td width="10%"></td>
+                            <td width="10%">09:00</td>
+                            <td width="10%">10:30</td>
+                            <td width="10%">12:00</td>
+                            <td width="10%">13:30</td>
+                            <td width="10%">15:00</td>
+                            <td width="10%">16:30</td>
+                            <td width="10%">18:00</td>
+                            <td width="10%">19:30</td>
+                            <td width="10%">21:00</td>
+                        </tr>
+                    </table>
+                    <table border="1" width="450px" height="280px" style="margin-left:25px;border:1px solid;border-color:dimgrey;text-align:center;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;table-layout: fixed;text-align: center;font-size: small;">
+                        <tr>
+                            <td width="10%">SUN</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">MON</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">TUE</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">WED</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">THU</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">FRI</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                        <tr>
+                            <td width="10%">SAT</td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                            <td width="10%"></td>
+                        </tr>
+                    </table>
+
+                    @foreach (StudentSection sec in schedule.getT())
+                    {
+                        double UsedTime = 0;
+                        planlist += sec.CourseCode + ";";
+                        god += sec.CourseCode + "," + sec.SectionNumber + ";";
+                        foreach (StudentSectionDetail detail in sec.SectionDetails)
+                        {
+                            string Stime = "";
+                            daynum = detail.DayNum;
+                            index = 0;
+                            foreach (var i in starttime)
+                            {
+                                if (detail.StartTimeNum != null)
+                                {
+                                    if (detail.StartTimeNum <= i)
+                                    {
+                                        actualstart = index;
+                                        TimeSpan time = TimeSpan.Parse(detail.EndTime) - TimeSpan.Parse(detail.StartTime);
+                                        UsedTime = time.TotalMinutes;
+                                        if (detail.StartTimeNum < i)
+                                        {
+                                            actualstart -= 1;
+                                            Stime = starttime[actualstart].ToString("0000").Substring(0, 2) + ":" + starttime[actualstart].ToString().Substring(2) + ":00";
+                                            TimeSpan StimeT = TimeSpan.Parse(Stime);
+                                            TimeSpan diff = (TimeSpan.Parse(detail.StartTime) - StimeT);
+                                            startdiff = diff.TotalMinutes / 90;
+                                        }
+                                        break;
+                                    }
+                                    index++;
+                                }
+
+                            }
+                    @*<div class="WaitHover">
+                        <div class="sectiondetail" style="left:@((actualstart * 45) + (startdiff * 45 ) +70 + 3)px;top:@(((daynum - 1) * 40) + 40 + 5)px;width:@(((UsedTime/90)*45) - 6)px;height:30px;background-color:@(color[count]);font-size:13px;font-weight:bold;color:white;position:absolute;border-radius: 150px;text-align:center;padding-top:5px;">
+                            @if(sec.FriendList.Count > 0){
+                            <div class="sectionHover" style="margin-left:-100px;margin-top:-30px;color:white;font-size:12px;overflow-y:auto;height:60px;width:250px;">
+                                @foreach (var i in sec.FriendList)
+                                        {
+                                        <div style="width:40px;display:inline;">
+                                            <img class="thumbnail" src="http://graph.facebook.com/@i.FacebookID/picture?type=normal" width="80" height="80" style="display:inline; white-space:nowrap;" />
+                                        </div>
+                                        }
+                            </div>
+                                    }
+                                </div>
+                            </div>*@
+                    <div class="WaitHover">
+                        <div class="sectiondetail" style="left:@((actualstart * 45) + (startdiff * 45) + 70 + 3)px;top:@(((daynum - 1) * 40) + 40 + 5)px;width:@(((UsedTime / 90) * 45) - 6)px;height:30px;background-color:@(color[count]);font-size:13px;font-weight:bold;color:white;position:absolute;border-radius: 150px;text-align:center;padding-top:5px;">
+                            @if (sec.FriendList.Count > 0)
+                                    {
+                                        counter = 0;
+                                    <div class="sectionHover" style="margin-left:-100px;margin-top:-45px;color:white;font-size:8px;height:45px;width:300px;">
+                                        @foreach (var i in sec.FriendList)
+                                            {
+                                                if (counter < 3)
+                                                {
+                                            <div style="width:40px;display:inline;">
+                                                <img class="thumbnail" src="http://graph.facebook.com/@i.FacebookID/picture?type=normal" width="45" height="45" style="display:inline; white-space:nowrap;" />
+                                            </div>
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                                counter++;
+                                            }
+                                        @if (counter >= 3)
+                                            {
+                                                counter -= 2;
+                                            <div class="moreFriendsDiv" style="width:40px;height:40px;background-color:aqua;display:inline;font-size:30px;">
+                                                +@counter
+                                            </div>
+                                            }
+                                    </div>
+                                            //modal here
+                                    <!-- Modal -->
+                                    <div class="sectionModal modal fade" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                                                    <h4 class="modal-title" style="color:black">@sec.CourseCode @sec.CourseName <br /> Friend(s)(@sec.FriendList.Count people)</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @foreach (var i in sec.FriendList)
+                                                            {
+                                                            <div style="width:200px;display:inline;">
+                                                                <img class="thumbnail" src="http://graph.facebook.com/@i.FacebookID/picture?type=normal" width="80" height="80" style="display:inline; white-space:nowrap;" />
+                                                                <div style="display:inline; white-space:nowrap; color:black">@i.StudentName</div>
+                                                            </div>
+                                                            <br />
+                                                            @*Fcount += 1;
+                                                                if (Fcount % 3 == 0)
+                                                                { <br />}*@
+                                                            }
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    }
+                        </div>
+                    </div>
+                                    startdiff = 0;
+                        }
+                        count += 1;
+                    }
+                </div>
+                @{/*deletebutton*/}
+                <div style="float:right;width:100px;height:30px;margin-top:10px;margin-right:25px;">
+                    @Ajax.ActionLink("Save Schedule", "savePlan", "AddCourse",
+                    new
+                    {
+                        studentID = @HttpContext.Current.Session["StudentId"],
+                        planList = @planlist.Substring(0, @planlist.Length - 1),
+                        scheduleList = @god.Substring(0, @god.Length - 1)
+                    },
+                                 new AjaxOptions
+                                 {
+                                     OnSuccess = "alertSavePlan"
+                                 },
+                              new { @class = "btn btn-default" })
+                </div>
+                @{/*Schedule Index*/}
+                <div style="float:right;width:150px;height:30px;margin-top:10px;margin-right:10px;font-weight:bold;color:red;">
+                    <p>Schedule @schedule_index</p>
+                </div>
+                @{/*course detail list*/}
+                <div style="float:right;width:260px;height:250px;margin-top:10px;margin-right:25px;overflow:auto;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;border:0.5px solid;">
+                    @{count = 0;}
+                    @foreach (StudentSection sec in schedule.getT())
+                    {
+                        <div style="float:left;width:10px;height:15px;background-color:@color[count];margin-top:13px;margin-left:10px;">
+
+                        </div>
+
+                        <div style="float:left;width:30px;height:40px;margin-top:10px;margin-left:5px;font-weight:bold;">@sec.SectionNumber</div>
+                        <div style="float:right;width:165px;height:40px;margin-top:10px;margin-right:10px;font-size:12px;font-weight:bold;white-space:normal">@sec.CourseName</div>
+                        <div id="faveSection" style="float:right;width:165px;height:40px;margin-top:10px;margin-right:20px;font-size:12px;font-weight:bold;white-space:normal">
+                            @Ajax.ActionLink("Fave", "FaveSection", "AddCourse",
+                              new
+                              {
+                                  courseCode = @sec.CourseCode,
+                                  sectionNumber = @sec.SectionNumber
+                              }, new AjaxOptions { OnSuccess = "faveSection" }, new { @class = "btn btn-default", @Styles = "width:100%;margin-top:-30px;margin-left:-30px;" })
+                        </div>
+                        foreach (StudentSectionDetail detail in sec.SectionDetails)
+                        {
+                            <div style="float:left;width:100px;margin-left:10px;height:20px;font-weight:bold;">
+                                @days[detail.DayNum - 1]
+                            </div>
+                            <div style="float:right;width:100px;margin-right:10px;height:20px;font-weight:bold;text-align:right;">
+                                @detail.StartTime - @detail.EndTime
+                            </div>
+                            <div style="float:left;width:100px;margin-left:10px;height:20px;">
+                                @detail.Room
+                            </div>
+                            if (detail.Instructor != null && detail.Instructor.Length > 8)
+                            {
+                                <div style="float:right;width:100px;margin-right:10px;height:20px;text-align:right;">
+                                    @detail.Instructor.Substring(0, 9) ...
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="float:right;width:100px;margin-right:10px;height:20px;text-align:right;">
+                                    @detail.Instructor
+                                </div>
+                            }
+                        }
+                        <div style="float:left;width:220px;margin-left:10px;text-align:left;margin-top:15px;font-size:16px;">
+                            @{if (sec.FriendSavedList.Count != 0)
+                            {
+                                <div style="display:inline;font-size:16px;" data-toggle="modal" data-target="#Friends-@grouping-@counter-@count">Friends : <span class="badge"> @sec.FriendSavedList.Count</span></div>
+                                <div id="Friends-@grouping-@counter-@count" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                                                <h4 class="modal-title" style="color:black">Friends who saved this section (@sec.FriendSavedList.Count people)</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                @{int Fcount = 1;}
+                                                @foreach (var i in sec.FriendList)
+                                                {
+                                                    <div style="width:200px;display:inline;">
+                                                        <img class="thumbnail" src="http://graph.facebook.com/@i.FacebookID/picture?type=normal" width="80" height="80" style="display:inline; white-space:nowrap;" />
+                                                        @*<div style="display:inline; white-space:nowrap;">@sec.FriendNameSavedList[Fcount]</div>*@
+                                                        <div style="display:inline; white-space:nowrap;">@i.StudentName</div>
+                                                    </div>
+                                                    if (Fcount % 3 == 0)
+                                                    { <br />}
+                                                    Fcount += 1;
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="display:inline;font-size:16px;">Friends : <span class="badge"> @sec.FriendSavedList.Count</span></div>
+                            }
+                            <div style="font-size:16px;">Available Seats : <span class="badge"> @sec.SeatAvailable</span></div>
+                            }
+                        </div>
+                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+                            count += 1;
+                    }
+                </div>
+                @*<button type="button" id="registerButton" onclick="register()" class="btn btn-primary" style="float:right; margin-right:25px;margin-top:5px; width:260px; height:30px; font-size:14px;">PRE-REGISTER WITH THIS SCHEDULE</button>*@
+
+                <div style="float:right; margin-right:25px;margin-top:5px; width:260px; height:30px; font-size:14px;">
+                    @Ajax.ActionLink("PRE-REGISTER WITH THIS SCHEDULE", "RegisterSchedule", "AddCourse",
+            new
+            {
+                studentCode = @HttpContext.Current.Session["StudentId"],
+                godSchedule = @god.Substring(0, @god.Length - 1),
+                year = 2015,
+                semester = 1
+            },
+                                 new AjaxOptions
+                                 {
+                                     OnSuccess = "checkRegistration"
+                                 },
+                              new { @class = "btn btn-primary" })
+                </div>
+            </div>
+                    count = 0;
+                    //reset when finish drawup each schedule;
+                    counter += 1;
+                    schedule_index += 1;
+        }
+
+        @if (List.TList.Count > 1)
+        {
+            schedule_index = 1;
+            <ul class="pagination-sm">
+                @foreach (Timetable schedule in List.getTimetable())
+                {
+                    <li class="PageNumber" style="display: inline;list-style-type: none;padding-right: 20px;padding: 6px 12px;margin-left: -1px;line-height: 1.42857143;color: #337ab7;text-decoration: none;background-color: #fff;border: 1px solid #ddd;">@schedule_index</li>
+                    schedule_index += 1;
+                }
+            </ul>
+        }
+        @{schedule_index = 1;}
+        @{grouping += 1;}
+        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+    </div>
+}
+
+
+
+

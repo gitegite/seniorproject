@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+}
+@using SeniorProject.Models
+@model TimetableList
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>GenPlanTestView</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Schedule.css" rel="stylesheet" />
+    <style>
+        .heart {
+            opacity: 0.4;
+        }
+
+        .MyCssClass {
+            background-image: url('../../Images/delete.png');
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        function returndays(i) {
+            var result = day[i];
+            document.write(result);
+        }
+        var count = 1;
+    </script>
+
+    @{
+        string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+        int daynum = 1;
+        //int[] starttime = { 900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+        int actualstart = 0;
+        int sessionlength = 1;
+        int count = 0;
+        int index = 0;
+    }
+    <script>
+        $(document).ready(function () {
+            $(".heart").on("click", function () {
+                if ($(this).css("opacity") < 1) {
+                    $(this).css("opacity", "1");
+                } else {
+                    $(this).css("opacity", "0.4");
+                }
+            });
+
+        });
+    </script>
+
+    <div class="container">
+
+        @foreach (Timetable schedule in Model.getTimetable())
+        {
+            count = 0;
+            double UsedTime = 0;
+            <div class="schedules">
+                <p class="schedulehead">
+                    Schedule
+                    <script>document.write(count++);</script>
+                    <img src="~/Media/Image/heartIcon.png" height="25" width="25" class="heart">
+                </p>
+                <table class="fixed" width="100%" height="10%">
+                    <tr><td width="10%"></td><td width="10%">09:00</td><td width="10%">10:30</td><td width="10%">12:00</td><td width="10%">13:30</td><td width="10%">15:00</td><td width="10%">16:30</td><td width="10%">18:00</td><td width="10%">19:30</td><td width="10%">21:00</td></tr>
+                </table>
+                <table class="fixed" width="100%" height="70%" border="1">
+                    <tr><td width="10%">SUN</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">MON</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">TUE</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">WED</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">THU</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">FRI</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                    <tr><td width="10%">SAT</td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td><td width="10%"></td></tr>
+                </table>
+                @foreach (StudentSection subject in schedule.getT())
+                {
+
+                    foreach (StudentSectionDetail subjectDetail in subject.SectionDetails)
+                    {
+                        daynum = subjectDetail.DayNum;
+                        int[] starttime = { 900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+                        foreach (var i in starttime)
+                        {
+                            if (subjectDetail.StartTimeNum != null)
+                            {
+                                if (subjectDetail.StartTimeNum <= i)
+                                {
+                                    actualstart = index;
+                                    TimeSpan time = TimeSpan.Parse(subjectDetail.EndTime) - TimeSpan.Parse(subjectDetail.StartTime);
+                                    UsedTime = time.TotalMinutes;
+                                    index = 0;
+                                    break;
+                                }
+                                index++;
+                            }
+
+                        }
+                        <div class="sectiondetail" style="margin-left:@((actualstart*35) + 35)px;margin-top:@(((daynum-1)*24)+60)px;background-color:@(color[count]);width:@((UsedTime / 90) * 35)px"></div>
+                    }
+
+                    count++;
+                }
+            </div>
+            <br />
+        }
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

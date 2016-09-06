@@ -1,0 +1,181 @@
+﻿@using SeniorProject.Models;
+@model CurrentEnrollmentRecordList
+
+@{
+    ViewBag.Title = "Schedules";
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+@{
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+    string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    int daynum = 1;
+    //int[] starttime = { 900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+    int actualstart = 0;
+    int sessionlength = 1;
+    int count = 0;
+    int index = 0;
+    int scheduleNum = count + 1;
+    string planlist = "";
+    string god = "";
+}
+
+<div class="container" style="margin:0 auto;width:1200px;position:relative;">
+    <div style="width: 900px;height: 500px;margin: 0 auto; font-family:'Segoe UI', Times, serif;font-weight:bold;font-size:16px;">
+        <table class="fixed" width="800px" height="50px" frame="below" style="margin:0 auto;opacity:0.7;">
+            <tr>
+                <td width="10%"></td>
+                <td width="10%">09:00</td>
+                <td width="10%">10:30</td>
+                <td width="10%">12:00</td>
+                <td width="10%">13:30</td>
+                <td width="10%">15:00</td>
+                <td width="10%">16:30</td>
+                <td width="10%">18:00</td>
+                <td width="10%">19:30</td>
+                <td width="10%">21:00</td>
+            </tr>
+        </table>
+        <table border="1" class="fixed" width="800px" height="400px" style="margin-left:50px;border:1px solid;border-color:dimgrey;text-align:center;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;">
+            <tr>
+                <td width="10%">SUN</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">MON</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">TUE</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">WED</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">THU</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">FRI</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">SAT</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+        </table>
+        @foreach (StudentCourse studCourse in Model.EnrollmentCourses)
+        {
+            double UsedTime = 0;
+            foreach (StudentSection studSec in studCourse.Sections)
+            {
+                foreach (StudentSectionDetail studSecDe in studSec.SectionDetails)
+                {
+                    daynum = studSecDe.DayNum;
+                    int[] starttime = { 900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+                    foreach (var i in starttime)
+                    {
+                        if (studSecDe.StartTimeNum != null)
+                        {
+                            if (studSecDe.StartTimeNum <= i)
+                            {
+                                actualstart = index;
+                                TimeSpan time = TimeSpan.Parse(studSecDe.EndTime) - TimeSpan.Parse(studSecDe.StartTime);
+                                UsedTime = time.TotalMinutes;
+                                index = 0;
+                                break;
+                            }
+                            index++;
+                        }
+
+                    }
+                    <div class="WaitHover">
+                        <div class="sectiondetail" style="margin-left:@(((actualstart*80) + 280) + 3)px;margin-top:@(((daynum-1)*57)+61)px;background-color:@(color[count]);width:@(((UsedTime / 90) * 80) - 6)px;height:35px;text-align:center;font-size:12px;color:white;">
+                            @studSec.CourseCode<br />@studSecDe.Room
+                            <div class="sectionHover" style="margin-left:-100px;margin-top:-100px;color:white;font-size:12px;">
+                                <div style="float:left;margin-top:10px;margin-left:10px;height:30px;text-align:left;">
+                                    SECTION @studSec.SectionNumber
+                                </div>
+                                <div style="float:right;margin-top:10px;margin-right:10px;height:30px;width:250px;text-align:left;">
+                                    @studSec.CourseName
+                                </div>
+                                <div style="float:left;margin-top:10px;margin-left:10px;height:15px;width:180px;text-align:left;">
+                                    @days[studSecDe.DayNum-1]
+                                </div>
+                                <div style="float:right;margin-top:10px;margin-right:10px;height:15px;width:180px;line-height:25px;text-align:right;">
+                                    @studSecDe.StartTime - @studSecDe.EndTime<br />
+                                </div>
+                                <div style="float:left;margin-top:10px;margin-left:10px;width:180px;text-align:left;">
+                                    @studSecDe.Room
+                                </div>
+                                <div style="float:right;margin-top:10px;margin-right:10px;width:180px;text-align:right;">
+                                    @studSecDe.Instructor
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                count++;
+            }
+        }
+
+    </div>
+</div>

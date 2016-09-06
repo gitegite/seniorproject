@@ -1,0 +1,178 @@
+﻿@model SeniorProject.Models.FacebookFriendList
+@*<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>*@
+
+
+<script>
+    $(document).ready(function () {
+
+
+        $('#friendlistdiv').find('div.frienddiv.row').on("click", "button.allowbtn", function () {
+            //var studCode = $(this).parent().find('div.friendinformation.col-md-6').find('div.studentCode').find('p.studentCodeP').text();
+            var btn = $(this);
+
+            var studCode = @HttpContext.Current.Session["StudentId"].ToString();
+
+            var faceId = $(this).parent().parent().find('div.facebookIddiv').text();
+            alert(faceId);
+            var friStatus = $(this).parent().parent().find('div.friendinformation.col-md-10.text-left').find('div.friendStatus');
+            $.ajax({
+                type: "POST",
+                url: '/Friends/ChangeFriendStatus',
+                data: {
+                    StudentCode: studCode,
+                    FacebookId: faceId
+                },
+                success: function (result) {
+                    alert(result)
+                    friStatus.html('A');
+                    btn.attr('disabled', 'disabled');
+                    btn.hide();
+                }
+
+            });
+        });
+        $('#friendlistdiv').find('div.frienddiv.row').on("click", "button.blockbtn", function () {
+            //var studCode = $(this).parent().find('div.friendinformation.col-md-6').find('div.studentCode').find('p.studentCodeP').text();
+            var studCode = @HttpContext.Current.Session["StudentId"].ToString();
+            var faceId = $(this).parent().parent().find('div.facebookIddiv').text();
+            var friStatus = $(this).parent().parent().find('div.friendinformation.col-md-10.text-left').find('div.friendStatus');
+            var allowBut = $(this).parent().parent().find('button.allowbtn');
+            $.ajax({
+                type: "POST",
+                url: '/Friends/ChangeFriendStatusB',
+                data: {
+                    StudentCode: studCode,
+                    FacebookId: faceId
+                },
+                success: function (result) {
+                    alert(result)
+                    friStatus.html('B');
+                    allowBut.show();
+                    allowBut.removeAttr('disabled');
+                }
+
+            });
+        });
+
+    });
+
+</script>
+<style>
+    .highlight {
+        font-style: normal;
+        font-size: 16px;
+    }
+</style>
+
+
+<div style="width:700px;height:@((Model.friendList.Count*110)+10)px;background-color:white;margin:0 auto;margin-top:10px;position:relative;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;font-family:'Segoe UI', Times, serif;font-size:16px;">
+    @foreach (SeniorProject.Models.FacebookFriend f in Model.friendList)
+    {
+        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+            <img src="http://graph.facebook.com/@f.FacebookID/picture?type=normal" width="80" height="80" class="thumbnail">
+        </div>
+        <div style="float:right;margin-top:15px;margin-right:10px;width:590px;height:40px;font-weight:bold;color:black;">
+            @f.StudentName
+        </div>
+        <div style="float:left;margin-left:10px; margin-top:0px;width:400px;height:15px;font-size:12px;color:gray;">
+            @f.StudentFaculty [ @f.StudentMajor ]
+        </div>
+        <div style="float:left;margin-left:10px;width:400px;height:15px;font-size:12px;color:gray;">
+            STATUS : @f.FriendStatus
+        </div>
+        <div style="float:right;margin-right:10px;width:60px;height:25px;">
+            <button class="blockbtn">Block</button>
+        </div>
+        <div style="float:right;margin-right:10px;width:60px;height:25px;">
+            <button class="allowbtn">Allow</button>
+        </div>
+        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+    }
+</div>
+
+
+
+@*<div class="tab-content" style="height:500px;overflow:auto;background-color:blue;">
+    <input type="text" ng-model="q" />
+
+    <div id="home" class="tab-pane fade in active">
+        Test Tab
+    </div>
+    <div id="AList" class="tab-pane fade">
+        
+            <div ng-repeat="f in friends">
+                <div ng-repeat="(key, val) in f.friendList | filter: q">
+                    <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                        <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                    </div>
+                    <div style="float:right;margin-top:15px;margin-right:10px;width:590px;height:40px;font-weight:bold;color:black;">
+                        {{val.StudentName}}
+                    </div>
+                    <div style="float:left;margin-left:10px; margin-top:0px;width:400px;height:15px;font-size:12px;color:gray;">
+                        {{val.StudentFaculty}} {{val.StudentMajor}}
+                    </div>
+                    <div style="float:left;margin-left:10px;width:400px;height:15px;font-size:12px;color:gray;">
+                        STATUS : {{val.FriendStatus}}
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="viewbtn">View Saved Plan</button>
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="blockbtn">Block</button>
+                    </div>
+                    <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                </div>
+            </div>
+        
+    </div>
+    <div id="BList" class="tab-pane fade">
+            <div ng-repeat="f in friends">
+                <div ng-repeat="(key, val) in f.friendList | filter: q">
+                    <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                        <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                    </div>
+                    <div style="float:right;margin-top:15px;margin-right:10px;width:590px;height:40px;font-weight:bold;color:black;">
+                        {{val.StudentName}}
+                    </div>
+                    <div style="float:left;margin-left:10px; margin-top:0px;width:400px;height:15px;font-size:12px;color:gray;">
+                        {{val.StudentFaculty}} {{val.StudentMajor}}
+                    </div>
+                    <div style="float:left;margin-left:10px;width:400px;height:15px;font-size:12px;color:gray;">
+                        STATUS : {{val.FriendStatus}}
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="allowbtn">Allow</button>
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="pndbtn">Pending</button>
+                    </div>
+                    <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                </div>
+            </div>
+    </div>
+    <div id="PList" class="tab-pane fade">
+            <div ng-repeat="f in friends">
+                <div ng-repeat="(key, val) in f.friendList | filter: q">
+                    <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                        <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                    </div>
+                    <div style="float:right;margin-top:15px;margin-right:10px;width:590px;height:40px;font-weight:bold;color:black;">
+                        {{val.StudentName}}
+                    </div>
+                    <div style="float:left;margin-left:10px; margin-top:0px;width:400px;height:15px;font-size:12px;color:gray;">
+                        {{val.StudentFaculty}} {{val.StudentMajor}}
+                    </div>
+                    <div style="float:left;margin-left:10px;width:400px;height:15px;font-size:12px;color:gray;">
+                        STATUS : {{val.FriendStatus}}
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="blockbtn">Block</button>
+                    </div>
+                    <div style="float:right;margin-right:10px;width:60px;height:25px;">
+                        <button class="allowbtn">Allow</button>
+                    </div>
+                    <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                </div>
+            </div>
+    </div>
+</div>*@

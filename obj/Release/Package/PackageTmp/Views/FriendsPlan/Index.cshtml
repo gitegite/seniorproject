@@ -1,0 +1,114 @@
+﻿@using SeniorProject.Models
+@model StudentProfile
+
+@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+@{
+    int counter = 1;
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Friend's Saved Plan</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+
+    <script>
+        var stringja = "";
+        $(document).ready(function () {
+            //$("#toget").children("div.tosend").each(function(){
+
+            //    stringja = $(this).text().toString();
+            //    $.ajax({
+            //        type: "POST",
+            //        url: '/FriendsPlan/GetPlanList',
+            //        data: {
+            //            god: stringja
+            //        },
+            //        success: function (result) {
+            //            $("#PlanListResult").append(result);
+            //        }
+            //    });
+            //});
+
+            @*tmp = JSON.parse(@Model.AllSavedPlans);
+            alert(tmp);*@
+            $("#PlanListResult").on('click', 'div.firstChild', function () {
+
+                var index = $(this).children("div.indexCounter").text();
+                var arr = index.split(' ');
+                index = arr[1] - 1;
+                //alert(index);
+                $.ajax({
+                    type: "POST",
+                    url: '/FriendsPlan/GetSchedule',
+                    data: { index: index },
+                    success: function (result) {
+
+                        $("#Schedules").html(result);
+                    }
+                });
+            });
+            $('#Schedules').on('click', 'button.duplicateBtn', function () {
+                var counter =
+                $(this).parent().prev().prev().text();
+                counter = counter - 1;
+
+                var friendID = sessionStorage.currentSeenFriendID;
+                // alert("Friend ID: " + friendID);
+                // alert(counter);
+                $.ajax({
+                    type: "POST",
+                    url: '/FriendsPlan/duplicatePlan',
+                    data: { scheduleIndex: counter, friendID: friendID },
+                    success: function (result) {
+                        alert(result);
+                    }
+                });
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '/FriendsPlan/GetPlanList',
+                success: function (result) {
+                    $("#PlanListResult").html(result);
+                }
+            });
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container" style="width:1200px;margin:0 auto;">
+        <div style="float:left;width:300px;margin-left:30px;">
+            <div style="float:left;width:300px;height:110px;margin-top:10px;overflow:auto;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+                <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                    <img class="thumbnail" src="http://graph.facebook.com/@Model.FacebookID/picture?type=normal" width="80" height="80" />
+                </div>
+                <div style="float:right;margin-top:15px;margin-left:10px;width:200px;height:20px;font-weight:bold;color:black;">
+                    @Model.Name
+                </div>
+                <div style="float:left;margin-left:10px; margin-top:10px;width:200px;height:20px;font-size:12px;color:gray;">
+                    @Model.Faculty [@Model.Major]
+                </div>
+            </div>
+            <div id="toget" style="float:left;width:300px;height:380px;margin-top:10px;overflow:auto;">
+                <div id="PlanListResult">
+
+                </div>
+            </div>
+        </div>
+        <div style="float:left;width:820px;background-color:white;height:500px;margin-left:10px;margin-top:10px;position:relative;font-family:'Segoe UI', Times, serif;font-size:16px;overflow:auto;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;">
+            <div id="Schedules"></div>
+        </div>
+    </div>
+</body>
+</html>

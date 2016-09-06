@@ -1,0 +1,36 @@
+﻿@model SeniorProject.Models.FacebookFriendList
+
+@*<script>
+        var studentcodelist = "";
+
+        $(document).ready(function () {
+            $("#friendlistdiv").each(function () {
+                if ($(this).find("div.picandcheckbox").find("input.chkFriend").is(':checked')) {
+                    studentcodelist += $(this).find("div.studentCode").find("p.studentCodeP").text() + ", ";
+                }
+            });
+
+            studentcodelist = studentcodelist.substr(0, studentcodelist.length - 1);
+        });
+    </script>*@
+
+<div id="friendlistdiv" style="">
+    @foreach (SeniorProject.Models.FacebookFriend f in Model.friendList)
+    {
+        if (f.FriendStatus != 'B')
+        {
+            <div class="singlefriend">
+                <div class=" studentCode ">
+                    <p class="studentCodeP" style="display:none">@f.StudentCode</p>
+                </div>
+                <div class="picandcheckbox" style="font-size:18px">
+                    <img src="http://graph.facebook.com/@f.FacebookID/picture?type=normal" width="80" height="80" class="img-circle">
+                    @f.StudentName
+                </div>
+                <input type="checkbox" class="chkFriend">
+            </div>
+        }
+
+    }
+    @*<button class="submitfriend">Submit</button>*@
+</div>

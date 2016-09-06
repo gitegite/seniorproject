@@ -1,0 +1,300 @@
+﻿@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+
+}
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<head>
+    <title>Friends</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="@Url.Content("~/FriendListController.js")?1"></script>
+</head>
+
+<script>
+    var facebook_id = "me";
+
+    //sync to facebook app by ID with specific version
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1598328510380395',
+            status:true,
+            cookie:true,
+            xfbml: true,
+            version: 'v2.3'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1598328510380395";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function logout(){
+        FB.logout(function(response) {
+            console.log(response);
+        });
+    }
+
+    function checkLoginState() {
+        //onclick fb button
+        FB.getLoginStatus(function(response) {
+            console.log("CheckLoginState  "+response.status);
+            if(response)
+                FB.logout(function(response) {});
+        });
+
+        FB.login(function(response){
+            console.log(response.status);
+            if(response.authResponse){
+                testAPI();
+                getFriend();
+            }else{
+
+            }
+        }, {scope: 'public_profile,email,user_friends', auth_type: 'reauthenticate'});
+    }
+    function testAPI() {
+        var studentCode = @HttpContext.Current.Session["StudentId"].ToString();
+        console.log('Welcome!  Fetching your information.... ' + studentCode);
+        FB.api('/me', function (response) {
+            console.log('Successful login for: ' + response.id + "   " + response.name);
+            alert(response.id);
+            document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=normal");
+
+            $.post("@Url.Action("SaveFacebookID", "Friends")",
+                { studentID: studentCode, facebookID: response.id },
+                    function (data) {
+                        alert(data);
+                    });
+        });
+
+    }
+    function getFriend() {
+        var studentCode = @HttpContext.Current.Session["StudentId"].ToString();
+        console.log("GetFriend: " + facebook_id);
+        FB.api(facebook_id + '/friends', function (response) {
+            var friends = "";
+            console.log(response + "   " + response.data);
+            for (var i = 0 ; i < response.data.length ; i++) {
+                console.log(response.data[i].id + " " + response.data[i].name);
+                friends += response.data[i].id + ",";
+            }
+            friends = friends.substring(0, friends.length - 1);
+            console.log(friends);
+            $.post("@Url.Action("SaveFacebookFriend2", "friends")",
+                { studentID: studentCode, friendList: friends },
+                function (data) {
+                });
+
+        });
+    }
+
+
+    //running when the site is loaded
+    $(document).ready(function () {
+
+        var studCode = @HttpContext.Current.Session["StudentId"].ToString()
+        $.ajax({
+            type: "POST",
+            url: '/Friends/GetFacebookID',
+            data: {
+                studentcode: studCode
+            },
+
+            success: function (result) {
+                if (result != "") {
+                    facebook_id = result;
+                    checkLoginGetFriend();
+                    $('#friendTab').css('display','inline-block')
+                }
+                else{
+
+                    $("#fblogin").css("display", "inline-block");
+                }
+            }
+        });
+    });
+
+
+
+    function sortMethod(a, b) {
+        var x = a.name.toLowerCase();
+        var y = b.name.toLowerCase();
+        return ((x > y) ? -1 : ((x > y) ? 1 : 0));
+    }
+
+
+
+    function checkLoginGetFriend(){
+        FB.getLoginStatus(function(response){
+            document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + facebook_id + "/picture?type=normal");
+            getFriend();
+        });
+    }
+</script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Friends</title>
+    <link href="~/Content/bootstrap-social.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container" style="width:950px;margin:0 auto;" ng-app="FriendApp">
+        <div ng-controller="FriendCtrl">
+            <img src="~/Media/Image/spinner.gif"alt="Loading..." ng-show="loading"/>
+            <div style="width:800px;margin:0 auto;margin-top:10px; margin-bottom:10px;">
+                <a id="fblogin" style="display:none" class="btn btn-block btn-social btn-facebook" onclick="checkLoginState()">
+                    Log-in to Facebook
+                </a>
+                <div id="friendTab" style="display:none">
+                    <div style="width:700px;background-color:white;height:100px;margin:0 auto;margin-top:10px;position:relative;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;font-family:'Segoe UI', Times, serif;font-size:16px;">
+                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                            <img class="thumbnail" id="profileImage" width="80" height="80" />
+                        </div>
+                        <div style="float:right;margin-top:15px;margin-right:10px;width:590px;height:40px;font-weight:bold;color:black;">
+                            @Session["StudentProfileName"]
+                        </div>
+                        <div style="float:left;margin-left:10px;width:250px;height:30px;font-size:12px;color:gray;">
+                            @Session["StudentProfileFaculty"] - @Session["StudentMajor"]
+                        </div>
+                    </div>
+                    <div class="tabpanel">
+                        <ul class="nav nav-tabs" style="width:700px;margin:0 auto;">
+                            <li class="active"><a data-toggle="tab" href="#Hlist">Home</a></li>
+                            <li><a data-toggle="tab" href="#AList">Allow List</a></li>
+                            @*<li><a data-toggle="tab" href="#BList">Block List</a></li>*@
+                            <li><a data-toggle="tab" href="#PList">Pending List</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" style="height:500px;overflow:auto;width:720px;margin:0 auto;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;font-family:'Segoe UI', Times, serif;font-size:16px;">
+                        <input type="search" placeholder="Search by... name, faculty, major" ng-model="q" style="width:100%;" />
+                        <div id="Hlist" class="tab-pane fade in active">
+                            <div ng-repeat="f in bothA |filter:q track by $index">
+                                <div style="width:350px;float:left;">
+
+                                    <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                        <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                    </div>
+                                    <div style="float:left;margin-top:10px;margin-left:10px;width:200px;height:30px;font-weight:bold;color:black;">
+                                        {{f.StudentName}}
+                                    </div>
+                                    <div style="float:left;margin-left:10px; margin-top:0px;width:250px;font-size:12px;color:gray;">
+                                        {{f.StudentFaculty}} <br />{{f.StudentMajor}}
+                                    </div>
+                                    <div style="float:right;margin-right:10px;margin-top:10px;width:100px;height:25px;">
+                                        <button class="viewbtn" ng-click="viewFriendPlan(f.StudentCode)">View Plan</button>
+                                    </div>
+
+                                    <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="AList" class="tab-pane fade">
+
+                            <div ng-repeat="f in friends">
+                                <div ng-repeat="(key, val) in f.friendList | filter:{FriendStatus:'A'} | filter:q">
+                                    <div style="width:350px;float:left;">
+                                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                            <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                        </div>
+                                        <div style="float:right;margin-top:10px;margin-left:10px;width:250px;height:30px;font-weight:bold;color:black;">
+                                            {{val.StudentName}}
+                                        </div>
+                                        <div style="float:left;margin-left:10px; margin-top:0px;width:250px;height:30px;font-size:12px;color:gray;">
+                                            {{val.StudentFaculty}} <br /> {{val.StudentMajor}}
+                                        </div>
+
+                                        <div style="float:right;margin-right:10px;margin-top:10px;width:100px;height:25px;">
+                                            <button class="blockbtn" ng-click="ChangeStatusB(@HttpContext.Current.Session["StudentId"].ToString(),val.FacebookID); update(val.StudentCode,'B')">Block</button>
+                                        </div>
+
+                                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div id="BList" class="tab-pane fade">
+                                <div ng-repeat="f in friends">
+                                    <div ng-repeat="(key, val) in f.friendList |filter:{FriendStatus:'B'} |filter: q">
+                                        <div style="width:350px;float:left;">
+                                            <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                                <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                            </div>
+                                            <div style="float:right;margin-top:10px;margin-left:10px;width:250px;height:30px;font-weight:bold;color:black;">
+                                                {{val.StudentName}}
+                                            </div>
+                                            <div style="float:left;margin-left:10px;width:250px;height:30px;font-size:12px;color:gray;">
+                                                {{val.StudentFaculty}} <br />{{val.StudentMajor}} <br />STATUS : Block
+                                            </div>
+                                            <div style="float:right;margin-right:10px;width:100px;height:25px;">
+                                                <button class="allowbtn" ng-click="ChangeStatusA(@HttpContext.Current.Session["StudentId"].ToString(),val.FacebookID); update(val.StudentCode,'A')">Allow</button>
+                                            </div>
+                                            <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div id="PList" class="tab-pane fade">
+                            <div ng-repeat="f in friends">
+                                <div ng-repeat="(key, val) in f.friendList |filter:{FriendStatus:'P'} |filter: q">
+                                    <div style="width:350px;float:left;">
+                                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                            <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                        </div>
+                                        <div style="float:right;margin-top:10px;margin-left:10px;width:250px;height:30px;font-weight:bold;color:black;">
+                                            {{val.StudentName}}
+                                        </div>
+                                        <div style="float:left;margin-left:10px; margin-top:0px;width:250px;font-size:12px;color:gray;">
+                                            {{val.StudentFaculty}} <br />{{val.StudentMajor}}
+                                        </div>
+
+                                        <div style="float:right;margin-top:10px;margin-right:10px;width:100px;height:25px;">
+                                            <button class="blockbtn" ng-click="ChangeStatusB(@HttpContext.Current.Session["StudentId"].ToString(),val.FacebookID); update(val.StudentCode,'B')">Block</button>
+                                        </div>
+                                        <div style="float:right;margin-top:10px;margin-right:10px;width:100px;height:25px;">
+                                            <button class="allowbtn" ng-click="ChangeStatusA( @HttpContext.Current.Session["StudentId"].ToString(),val.FacebookID); update(val.StudentCode,'A')">Allow</button>
+                                        </div>
+                                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-repeat="f in friends">
+                                <div ng-repeat="(key, val) in f.friendList |filter:{FriendStatus:'B'} |filter: q">
+                                    <div style="width:350px;float:left;">
+                                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                            <img ng-src="http://graph.facebook.com/{{val.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                        </div>
+                                        <div style="float:right;margin-top:10px;margin-left:10px;width:250px;height:30px;font-weight:bold;color:black;">
+                                            {{val.StudentName}}
+                                        </div>
+                                        <div style="float:left;margin-left:10px;width:250px;font-size:12px;color:gray;">
+                                            {{val.StudentFaculty}} <br />{{val.StudentMajor}} <br />
+                                        </div>
+                                        <div style="float:right;margin-right:10px;margin-top:10px;width:100px;height:25px;">
+                                            <button class="allowbtn" ng-click="ChangeStatusA(@HttpContext.Current.Session["StudentId"].ToString(),val.FacebookID); update(val.StudentCode,'A')">Allow</button>
+                                        </div>
+                                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @section Scripts{
+                <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"> </script>
+            }
+        </div>
+    </div>
+
+
+</body>
+</html>

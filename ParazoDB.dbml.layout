@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 27.25" name="ParazoDB">
+  <DataContextMoniker Name="/ParazoDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="629ac6f0-92fe-4c6f-b11a-8f81df79328a" absoluteBounds="0.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/ParazoDBDataContext/StudentConstraint" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ac2f623-9554-4397-a2f9-88730a127de3" absoluteBounds="0.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cbd681c2-19c9-439a-903f-1e0508fe8449" absoluteBounds="3.75, 0.75, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/ParazoDBDataContext/Course" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3b215f52-db29-49ba-8415-de2b1d60271c" absoluteBounds="3.765, 1.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="deb32be6-6162-46a3-acfb-5d7a0636e703" absoluteBounds="0.75, 4.75, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/ParazoDBDataContext/Enrollment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ab83e23-ff8f-4124-b028-09c9c1e90fb8" absoluteBounds="0.765, 5.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4d55f305-eb65-4196-afdd-d9a098b5e31c" absoluteBounds="3.75, 4.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/ParazoDBDataContext/Friend" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c607a015-f8bc-4172-85b4-50186d96fed1" absoluteBounds="3.765, 5.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f40a2b5d-a8d9-4897-a531-98fc16620def" absoluteBounds="6.75, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ParazoDBDataContext/FriendRelation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4510fbed-19f3-4113-8fdf-2e256997c9d1" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6e80bc02-6b78-4bc2-9207-875f575862f9" absoluteBounds="6.75, 3.75, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/ParazoDBDataContext/Grade" />
+      <nestedChildShapes>
+        <elementListCompartment Id="da5d9aab-9cc5-4f40-a9d2-44ba8f4ea9ae" absoluteBounds="6.765, 4.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9d52a810-4315-4274-ab4d-4d93082ee3e9" absoluteBounds="3.75, 7.75, 2, 3.1170068359375014">
+      <DataClassMoniker Name="/ParazoDBDataContext/Instructor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="da5588e8-9a59-43f0-92d2-207c15a31e9d" absoluteBounds="3.765, 8.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3cde23ce-b560-4a29-8eef-8ac893c69eff" absoluteBounds="6.75, 7.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/ParazoDBDataContext/SavedPlan" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d076a92b-ed5e-4533-8e45-2da486a94245" absoluteBounds="6.765, 8.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="80e12c59-5cce-4c5f-bf03-226e040f0203" absoluteBounds="9.75, 0.75, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/ParazoDBDataContext/SavedSchedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bc8208e9-9bab-4308-b77d-9ccbd1914c48" absoluteBounds="9.765, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fbc651bf-37a2-4a42-9e56-179f932b9caa" absoluteBounds="9.75, 3.75, 2, 5.6169254557291666">
+      <DataClassMoniker Name="/ParazoDBDataContext/Section" />
+      <nestedChildShapes>
+        <elementListCompartment Id="581b1a83-4c2b-4746-a7cc-8c2ff04611a9" absoluteBounds="9.765, 4.21, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3d05158f-6151-4eca-a58f-5aaab2a9b695" absoluteBounds="6.75, 10.75, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/ParazoDBDataContext/SectionDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="46a634a3-6c4d-4bbf-b886-84c3aed19389" absoluteBounds="6.765, 11.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="703d312d-74be-45fb-9cd2-a3c0cfdc5b82" absoluteBounds="9.75, 10.75, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/ParazoDBDataContext/SemesterCourse" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d40f842e-133d-4bca-8b79-711f0e251644" absoluteBounds="9.765, 11.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d5398af5-afc9-4f39-8ba6-609ed2d4a719" absoluteBounds="0.75, 11.75, 2, 15.2319970703125">
+      <DataClassMoniker Name="/ParazoDBDataContext/Student" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9212438c-95dc-4564-97f5-e6457d2e147d" absoluteBounds="0.765, 12.21, 1.9700000000000002, 14.6719970703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

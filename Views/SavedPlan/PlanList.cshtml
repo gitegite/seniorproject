@@ -1,0 +1,43 @@
+﻿@using SeniorProject.Models
+@model List<List<StudentCourse>>
+@{
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+    string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    int count = 0;
+    int counter = 1;
+
+}
+@*<script>
+    $("#parentOfIndexes").on('click', 'div.firstChild', function () {
+        var index = $(this).children("div.indexCounter").text();
+        var arr = index.split(' ');
+        index = arr[1];
+        alert(index);
+    });
+</script>*@
+    @foreach (List<StudentCourse> courselist in Model)
+    {
+    <div class="firstChild" style="float:left;width:250px;margin-left:25px;margin-top:10px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;font-family:'Segoe UI', Times, serif;font-size:14px;">
+        <div class="indexCounter" style="float:left;width:220px;font-size:20px;color:white;background-color:red;display:inline;">Plan @counter</div>
+        <div class="DeletePlan" style="float:left;width:30px;font-size:20px;color:white;background-color:red;"><img src="~/Media/Image/trash.png" width="20px" height="22px" style="padding-bottom:5px;margin:0 auto;"/></div>
+        @{count = 0;}
+        <div class="Subjects" style="float:left;width:250px;">
+            @foreach (StudentCourse course in courselist)
+            {
+                foreach (StudentSection sec in course.Sections)
+                {
+                    <div>
+                        <div style="float:left;width:10px;height:15px;background-color:@color[count];margin-top:12.5px;margin-left:5px;">
+                        </div>
+                        <div style="float:left;width:60px;margin-top:10px;margin-left:5px;"> @sec.CourseCode</div>
+                        <div style="float:left;width:165px;margin-top:10px;margin-left:5px;font-size:14px;"> @sec.CourseName</div>
+                    </div>
+                }
+                count += 1;
+            }
+        </div>
+        @{counter += 1;}
+
+    <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px;" />
+</div>
+}

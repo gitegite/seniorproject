@@ -1,0 +1,477 @@
+﻿@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+
+}
+@model string
+
+<script>
+    var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+    function returndays(i) {
+        var result = day[i];
+        document.write(result);
+    }
+    var count = 1;
+    function alertSavePlan(result){
+        alert(result);
+    }
+
+    function checkRegistration(result){
+        var resultMessage = result.split("\n");
+        console.log(result);
+        console.log(resultMessage);
+        var registrationResult = "";
+        if(resultMessage[0] === "Success"){
+            alert("Succeeded");
+            registrationResult = "The following course(s) have been registered \n";
+            registrationResult += resultMessage[1];
+        }
+        else if(resultMessage[0] === "Fail"){
+            var noSeatGod = "";
+            registrationResult = "You need to select other sections for the following course(s)";
+            noSeatGod = resultMessage[1];
+            sessionStorage.noSeatGod = noSeatGod;
+            sessionStorage.godSchedule = resultMessage[2];
+            sessionStorage.updatedGodSchedule = resultMessage[2];
+            alert(registrationResult);
+            window.location.href = '/Recommend';
+        }
+    }
+
+    function faveSection(result){
+        if(sessionStorage.getItem("FavSec") !== null){
+            sessionStorage.FavSec += ';' + result;
+        }else{
+            sessionStorage.FavSec = result;
+        }
+        var newFavoriteGod = sessionStorage.newFavoriteGod;
+        var currentGod = sessionStorage.god.toString();
+        var courseSection = result.split(",");
+        var courseCode = courseSection[0];
+        var sectionNumber = courseSection[1];
+
+        var newGod = "";
+        var currentCourseSection = ""
+        if(newFavoriteGod == null || newFavoriteGod == ""){
+            currentCourseSection = currentGod.split(";");
+        } else{
+            currentCourseSection = newFavoriteGod.toString().split(";");
+        }
+
+        for(var i = 0; i < currentCourseSection.length; i++){
+            var currentSelectedSections = currentCourseSection[i].split(",");
+            if(currentSelectedSections[0] === courseCode){
+                newGod = newGod + courseCode + "," + sectionNumber + ";";
+            }
+            else{
+                newGod = newGod + currentCourseSection[i] + ";";
+            }
+        }
+
+        newGod = newGod.substring(0, newGod.length -1);
+        console.log(newGod);
+        sessionStorage.newFavoriteGod = newGod;
+
+
+        $.ajax({
+            type: "GET",
+            url: '/GenSchedule/GetScheduleWithFavoriteSection',
+            data: {
+                friendList: sessionStorage.friendStudentCodes.toString(),
+                godMode: newGod
+            },
+            success: function (result) {
+                $("#schedules").html(result);
+                $("#FavSection").html(sessionStorage.getItem('FavSec'));
+            }
+
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#spinner").hide();
+        $(document).on('click','li.PageNumber',function(){
+            $('li.PageNumber').css("background-color","#fff");
+            $('li.PageNumber').css("color","#337ab7");
+            $(this).css("background-color","#337ab7");
+            $(this).css("color","white");
+            $(this).parent().parent().children("div.scheIndexPar").hide();
+            $(this).parent().parent().children("#"+$(this).text()).show();
+        });
+
+        //$("#sectionNumModal").modal('show');
+        $("#testCon").click(function(){
+            var tosend = "";
+
+            var arr = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+            for (var i = 0; i < arr.length ; ++i) {
+                var toselect = "#" + arr[i];
+                var day = arr[i];
+
+                $(toselect).find('td').each(function () {
+                    var chkbox = $(this).find("input");
+                    //alert($(toselect).attr("id"));
+                    if (chkbox.prop('checked') == true) {
+                        tosend += day + chkbox.attr('class') + ",1;";
+                    }else if(chkbox.prop('checked') == false){
+                        tosend += day + chkbox.attr('class') + ",0;";
+
+                    }
+
+
+                });
+            }
+            tosend =  tosend.substr(0, tosend.length - 1)
+            tosend = tosend.toUpperCase();
+            alert(tosend);
+        });
+
+        $("#addbtn").click(function () {
+            location.href = "/SectionSelector/GetCourses?year=2015&semester=1";
+        });
+
+
+        if (sessionStorage.getItem("coursename") == null && sessionStorage.getItem("coursecode") == null) {
+            sessionStorage.setItem("coursename","");
+            sessionStorage.setItem("coursecode","");
+
+        }else{
+            var savedcourses = sessionStorage.getItem("coursename").toString();
+            var eachcourse = savedcourses.split(",");
+            var savedCode = sessionStorage.getItem("coursecode").toString();
+            var eachcode = savedCode.split(",");
+
+
+
+
+            for (var i = 0; i < eachcourse.length; ++i) {
+                if (eachcourse[i] != "") {
+
+                    var savedcourse = "<tr class='well'>"+"<td class='code'>"+eachcode[i]+"</td>"+"<td class='name'>" + eachcourse[i] + "</td><td>" + "<button class='deletebtn'>"+"<img src='/Media/Image/trash.png'"+ "width='20px;'"+ "height='22px;'"+ "style='padding-bottom:5px;margin:0 auto;' />"+"</button>" + "</td></tr>";
+
+                    $("#table-savedcourses").append(savedcourse);
+                }
+            }
+            $("#table-savedcourses").find('tr').each(function(){
+                var coursecode = $(this).find('td.code').text()
+                $(this).attr('ng-click','getSections(\''+coursecode+'\')');
+            });
+        }
+        //$(document).on('click','tr.well',function(){
+        //    var index = $('tr').index(this);
+        //    var god = sessionStorage.getItem('god').toString();
+        //    god = god.split(';');
+        //    var alertja  = god[index].substr(god[index].indexOf(',')+1);
+        //    /////////Modal/////////
+        //    alert(alertja);
+
+        //});
+        $("#showbtn").click(function () {
+
+            var studentcodelist = "";
+
+            $("#friendlistdiv").find("div.singlefriend").each(function () {
+                var chkbox = $(this).find("input.chkFriend");
+                if (chkbox.is(':checked')) {
+                    studentcodelist += chkbox.parent().find("div.studentCode").find("p.studentCodeP").text() + ",";
+                }
+            });
+
+            studentcodelist = studentcodelist.substr(0, studentcodelist.length - 1);
+            var tosend = "";
+
+            var arr = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+            for (var i = 0; i < arr.length ; ++i) {
+                var toselect = "#" + arr[i];
+                var day = arr[i];
+
+                $(toselect).find('td').each(function () {
+                    var chkbox = $(this).find("input");
+                    //alert($(toselect).attr("id"));
+                    if (chkbox.prop('checked') == true) {
+                        tosend += day + chkbox.attr('class') + ",1;";
+                    }else if(chkbox.prop('checked') == false){
+                        tosend += day + chkbox.attr('class') + ",0;";
+
+                    }
+
+                });
+            }
+            tosend =  tosend.substr(0, tosend.length - 1)
+            tosend = tosend.toUpperCase();
+            //alert(tosend);
+            var studCode = @HttpContext.Current.Session["StudentId"];
+            //alert(studCode)
+            $.ajax({
+                type: "GET",
+                url: '/AddCourse/SetStudentConstraint',
+                data:{
+                    studentID: studCode,
+                    constraintList: tosend
+                },
+                success: function(result){
+                    //alert(result)
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: '/GenSchedule/Test',
+                data: {
+                    friendList: sessionStorage.friendStudentCodes.toString(),
+                    godMode:sessionStorage.getItem("god").toString()
+                },
+                beforeSend:function(){
+                    $("#spinner").show();
+                },
+                success: function (result) {
+                    $("#schedules").html(result);
+                    $("#spinner").hide();
+                }
+
+            });
+        });
+
+        $(document).on("click",'button.btn.kuy',function(){
+            $(this).next().modal('toggle');
+        });
+        $(document).on('click', 'div.moreFriendsDiv', function () {
+            var modal = $(this).parent().siblings('div.sectionModal');
+            //alert($(modal).attr('class'));
+            $(modal).modal('show');
+
+        });
+
+        $('.deletebtn').on("click", function () {
+
+            var courseCode = $(this).parent().parent().children('td.code').text();
+            var courseName = $(this).parent().parent().children('td.name').text();
+            $(this).parent().parent().remove();
+
+            var sessCode = sessionStorage.getItem("coursecode").toString();
+            sessCode = sessCode.replace(courseCode+",","");
+            sessionStorage.setItem("coursecode",sessCode);
+            if(sessCode.charAt(sessCode.length-1)!=','){
+                sessCode = sessCode.replace(courseCode,"");
+                sessionStorage.setItem("coursecode",sessCode);
+            }
+
+            var sessName = sessionStorage.getItem("coursename").toString();
+            sessName = sessName.replace(courseName+",","");
+            sessionStorage.setItem("coursename",sessName);
+            if(sessName.charAt(sessName.length-1)!=','){
+                sessName = sessName.replace(courseName,"");
+                sessionStorage.setItem("coursename",sessName);
+
+            }
+
+            $.ajax({
+                type:"POST",
+                url:"/AddCourse/DeleteSubject",
+                data: {CourseCode : courseCode},
+                success: function(result){
+                    sessionStorage.setItem("god", result);
+                }
+            });
+
+
+        });
+    });
+
+
+</script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="@Url.Content("~/FriendAOnly.js")?4"></script>
+<div class="container" ng-app="FriendApp" ng-controller="FriendCtrl">
+    <img src="~/Media/Image/spinner.gif" alt="Loading..." ng-show="loading" />
+    <img src="~/Media/Image/spinner.gif" alt="Loading..." id="spinner" />
+
+    <div class="row">
+
+        <div class="col-md-3" style="box-shadow: 1px 1px 3px 1px #8A7675;" >
+
+            <span> <button id="addbtn" class="btn btn-primary" style="width:48%;margin-top:10px;">Add</button> <button id="showbtn" class="btn btn-primary" style="width:50%;margin-top:10px;">Show Schedule</button></span>
+            <table id="table-savedcourses" class="table table-responsive"></table>
+            <div id="constraint">
+                @Html.Partial("~/Views/Constraint/_ConstraintView.cshtml")
+            </div>
+            <div>
+                <button id="pickfribtn" type="button" style="width:100%;margin-bottom:10px;" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Pick Friends</button>
+            </div>
+            <div>
+                <!-- Trigger the modal with a button -->
+                <div style="margin-top:10px;" ng-show="hasConfirmed">
+                    <div ng-if="checkedFriends.length <= 3">
+                        <span style="float:left" ng-repeat="f in checkedFriends">
+                            <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail" />
+                        </span>
+                    </div>
+                    <div ng-if="checkedFriends.length > 3">
+                        <span style="float:left" ng-repeat="f in checkedFriends " ng-if="$index <=2">
+                            <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail" />
+                        </span>
+                        <div>
+                            <span ng-click="showMoreFriends()" style="width:80px;height:80px;background-color:aqua;display:inline-block;font-size:50px;">+{{checkedFriends.length - 3}}</span>
+                            @*<span style="float:left" ng-repeat="f in checkedFriends" ng-if="$index == 3">
+                                    <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail" />
+                                </span>*@
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div id="moreFriendsModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" style="width:70%;" placeholder="Search by... name, faculty, major" ng-model="q" />
+                                <div ng-repeat="f in bothAA | filter:q" style="display:inline-block;">
+                                    <div style="width:350px;float:left;">
+
+                                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                            <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                        </div>
+                                        <div style="float:left;margin-top:10px;margin-left:10px;width:200px;height:30px;font-weight:bold;color:black;">
+                                            {{f.StudentName}}
+                                        </div>
+                                        <div style="float:left;margin-left:10px; margin-top:0px;width:250px;font-size:12px;color:gray;">
+                                            {{f.StudentFaculty}} <br>{{f.StudentMajor}}
+                                        </div>
+                                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" style="width:70%;" placeholder="Search by... name, faculty, major" ng-model="q" />
+                                <button ng-click="selectAll()">Select All</button>
+                                <div ng-repeat="f in bothAA | filter:q" style="display:inline-block;">
+                                    <div style="width:350px;float:left;">
+
+                                        <div style="float:left;width:80px;height:80px;margin-top:10px;margin-left:10px;">
+                                            <img ng-src="http://graph.facebook.com/{{f.FacebookID}}/picture?type=normal" width="80" height="80" class="thumbnail">
+                                        </div>
+                                        <div style="float:left;margin-top:10px;margin-left:10px;width:200px;height:30px;font-weight:bold;color:black;">
+                                            {{f.StudentName}}
+                                        </div>
+                                        <div style="float:left;margin-left:10px; margin-top:0px;width:250px;font-size:12px;color:gray;">
+                                            {{f.StudentFaculty}} <br>{{f.StudentMajor}}
+                                        </div>
+                                        <div style="float:right;margin-top:10px;width:100px;height:25px;">
+                                            <input type="checkbox" ng-model="f.IsChecked" />
+                                        </div>
+
+                                        <hr style="float:left;width:100%;border: 0;height: 1px;background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));margin-top:10px" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <div style="float:right;width:100%;">
+                                    <button type="button" class="btn btn-primary" style="float:right;" ng-click="setFriendStudentCode()">Confirm</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="sectionNumModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div id="modalBody" class="modal-body">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="(key, section) in sectionlist">
+                                            <td><input type="checkbox" ng-model="section.isChecked" /></td>
+                                            <td>
+                                                <div align="center">
+                                                    {{section.SectionNumber}}
+                                                    <br />
+                                                    <div ng-if="section.SeatAvailable == 0"><p style="color:red">{{section.SeatAvailable}} SEAT</p></div>
+                                                    <div ng-if="section.SeatAvailable == 1"><p style="color:green">{{section.SeatAvailable}} SEAT</p></div>
+                                                    <div ng-if="section.SeatAvailable > 1"><p style="color:green">{{section.SeatAvailable}} SEATS</p></div>
+                                                </div>
+
+                                            </td>
+
+
+                                            @{int marginLeft = 8;}
+                                            <td ng-repeat="day in allStudyDayNum[key] track by $index">
+                                                <img ng-if="day == 0" src="~/Media/Image/GrayBlock.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 1" src="~/Media/Image/SundayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 2" src="~/Media/Image/MondayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 3" src="~/Media/Image/TuesdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 4" src="~/Media/Image/WednesdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 5" src="~/Media/Image/ThursdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 6" src="~/Media/Image/FridayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 7" src="~/Media/Image/SaturdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 8" src="~/Media/Image/SundayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 9" src="~/Media/Image/MondayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 10" src="~/Media/Image/TuesdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 11" src="~/Media/Image/WednesdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 12" src="~/Media/Image/ThursdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 13" src="~/Media/Image/FridayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                <img ng-if="day == 14" src="~/Media/Image/SaturdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                                @{marginLeft += 1;}
+                                            </td>
+
+                                            <td>
+                                                <div ng-repeat="sectionDetail in section.SectionDetails">
+                                                    {{sectionDetail.Instructor}}
+                                                </div>
+                                            </td>
+
+                                            @*<td><a href="#" ng-click="showDetail(section, section.SectionNumber)">Details</a></td>*@
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button ng-click="confirm()">Confirm</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<button id="testCon">TEST</button>*@
+        <div id="schedules" class="col-md-9">
+
+        </div>
+    </div>
+</div>

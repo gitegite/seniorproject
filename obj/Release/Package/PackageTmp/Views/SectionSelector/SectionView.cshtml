@@ -1,0 +1,318 @@
+﻿@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+@using SeniorProject.Models
+@model CoursesList
+
+<head>
+    <title>
+        Friends</title>
+    <meta name="viewport" content="width=device-width" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">*@
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script src="@Url.Content("~/CourseListController.js")"></script>
+
+    <script>
+        var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        function returndays(i) {
+            var result = day[i];
+            document.write(result);
+        }
+    </script>
+
+    <style>
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            var studCode = @HttpContext.Current.Session["StudentId"].ToString()
+            $("tr.listofcourse").click(function () {
+                //$(this).hide();
+                $(this).find('td').each(function () {
+
+                    var coursecode = $(this).text();
+                    $.ajax({
+                        type: "POST",
+                        url: '/SectionSelector/ShowSection',
+                        data: {
+                            year: '2015',
+                            semester: '1',
+                            courseCode: coursecode,
+                            studentCode: studCode
+                        },
+                        success: function (result) {
+                            //alert(result);
+                            $('#sectiondiv').html(result);
+                        }
+                    });
+                    return false;
+                });
+
+            });
+        });
+
+
+    </script>
+
+
+
+
+</head>
+<body>
+    <div ng-app="CourseListApp">
+        <div ng-controller="CourseListCtrl">
+            <div class="row">
+
+                <div class="col-md-6" style="height:800px;overflow:scroll">
+                    <input type="text" style="width:70%;" placeholder="Search by... course code, course name" ng-model="q" />
+                    <table class="table table-hover">
+                        <tbody ng-repeat="course in courselist">
+                            <tr ng-repeat="(key, val) in course | filter:q" ng-click="showSection(val.CourseCode, val.CreditSum)">
+                                <td>{{val.CourseCode}}</td>
+                                <td>{{val.CourseName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6" style="height:800px;overflow:scroll">
+                    <button class="btn btn-primary" ng-click="confirm()">Confirm</button>   <button class="btn btn-primary" ng-click="selectall()">Select All</button>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr ng-repeat="(key, section) in sectionlist">
+                                <td><input type="checkbox" ng-model="section.isChecked" /></td>
+                                <td>
+                                    <div align="center">
+                                        {{section.SectionNumber}}
+                                        <br />
+                                        <div ng-if="section.SeatAvailable == 0"><p style="color:red">{{section.SeatAvailable}} SEAT</p></div>
+                                        <div ng-if="section.SeatAvailable == 1"><p style="color:green">{{section.SeatAvailable}} SEAT</p></div>
+                                        <div ng-if="section.SeatAvailable > 1"><p style="color:green">{{section.SeatAvailable}} SEATS</p></div>
+                                    </div>
+                                    
+                                </td>
+
+
+                                @{int marginLeft = 8;}
+                                <td ng-repeat="day in allStudyDayNum[key] track by $index">
+                                    <img ng-if="day == 0" src="~/Media/Image/GrayBlock.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 1" src="~/Media/Image/SundayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 2" src="~/Media/Image/MondayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 3" src="~/Media/Image/TuesdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 4" src="~/Media/Image/WednesdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 5" src="~/Media/Image/ThursdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 6" src="~/Media/Image/FridayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 7" src="~/Media/Image/SaturdayMorning.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 8" src="~/Media/Image/SundayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 9" src="~/Media/Image/MondayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 10" src="~/Media/Image/TuesdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 11" src="~/Media/Image/WednesdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 12" src="~/Media/Image/ThursdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 13" src="~/Media/Image/FridayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    <img ng-if="day == 14" src="~/Media/Image/SaturdayNoon.png" width="15" height="30" margin-left="@marginLeft px" />
+                                    @{marginLeft += 1;}
+                                </td>
+
+                                <td>
+                                    <div ng-repeat="sectionDetail in section.SectionDetails">
+                                        {{sectionDetail.Instructor}}
+                                    </div>
+                                </td>
+
+                                <td><a href="#" ng-click="showDetail(section, section.SectionNumber)">Details</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <modal title="detail.CourseName" visible="isVisible">
+                        <div>Section: {{detail.SectionNumber}}</div>
+                        <div class="row">
+                            <div ng-show="creditSum > 1" class="col-sm-4">{{detail.CourseCode}} ({{creditSum}} CREDITS)</div>
+                            <div ng-show="creditSum <= 1" class="col-sm-4">{{detail.CourseCode}} ({{creditSum}} CREDIT)</div>
+                            <div class="col-sm-6"></div>
+                            <div ng-show="detail.SeatAvailable > 1" class="col-sm-2">{{detail.SeatAvailable}} SEATS</div>
+                            <div ng-show="detail.SeatAvailable <= 1" class="col-sm-2">{{detail.SeatAvailable}} SEAT</div>
+                        </div>
+                        <div>{{detail.CourseName}}</div>
+                        <br />
+                        <div align="center">{{detail.Remark}}</div>
+                        <br />
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">MIDTERM EXAMINATION</div>
+                                    <div class="col-sm-3" align="right">{{detail.MidtermDate}}</div>
+                                    <div class="col-sm-3" align="center">({{detail.MidtermStartTime}}-{{detail.MidtermEndTime}})</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">FINAL EXAMINATION</div>
+                                    <div class="col-sm-3" align="right">{{detail.FinalDate}}</div>
+                                    <div class="col-sm-3" align="center">({{detail.FinalStartTime}}-{{detail.FinalEndTime}})</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div style="position:relative;">
+                            <table style="width:450px; height:40px;opacity:0.7;margin-left:25px;" frame="below">
+                                <tr>
+                                    <td width="10%"></td>
+                                    <td width="10%">09:00</td>
+                                    <td width="10%">10:30</td>
+                                    <td width="10%">12:00</td>
+                                    <td width="10%">13:30</td>
+                                    <td width="10%">15:00</td>
+                                    <td width="10%">16:30</td>
+                                    <td width="10%">18:00</td>
+                                    <td width="10%">19:30</td>
+                                    <td width="10%">21:00</td>
+                                </tr>
+                            </table>
+                            <table border="1" width="450px" height="280px" style="margin-left:25px;border:1px solid;border-color:dimgrey;text-align:center;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;table-layout: fixed;text-align: center;font-size: small;">
+                                <tr>
+                                    <td width="10%">SUN</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">MON</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">TUE</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">WED</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">THU</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">FRI</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">SAT</td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                    <td width="10%"></td>
+                                </tr>
+                            </table>
+                            <div ng-repeat="(key,val) in dayNum track by $index">
+                                <div class="sectiondetail"
+                                     style="left:{{(((actualStart[key]) * 45) + (startdiff[key] * 45 ) +70 + 3)}}px;top :{{(((dayNum[key] - 1) * 40) + 40 + 5)}}px;width :{{(((usedTime[key] / 90) * 45) - 6)}}px;height: 30px; background-color :#ff2929; font-size :13px; font-weight: bold; color :white; position: absolute; border-radius: 150px; text-align: center; padding-top: 5px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div ng-repeat="studyTime in detail.SectionDetails">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">{{studyTime.DayName}}</div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-3" align="center">{{studyTime.StartTime}}-{{studyTime.EndTime}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">{{studyTime.Room}}</div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-3" align="center">{{studyTime.Instructor}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </modal>
+                </div>
+            </div>
+            @*<div ng-repeat="course in courselist">
+                    <div ng-repeat="(key, val) in course | filter:q">
+                        <div> {{val.CourseCode}} {{val.CourseName}}</div>
+                    </div>
+                </div>*@
+        </div>
+
+    </div>
+    <div id=" result " class="row">
+        @*<div class="col-md-6" style="overflow:scroll;width:500px;height:800px">
+                <table class="table table-hover">
+                    <tr><th>Course ID</th><th>Course Name</th></tr>
+                    @foreach (StudentCourse item in Model.CourseList)
+                    {
+
+                        <tr class="listofcourse">
+                            <td>@item.CourseCode</td>
+                            <td>@item.CourseName</td>
+                        </tr>
+                    }
+                </table>
+            </div>*@
+        <div class="col-md-6" id="sectiondiv">
+        </div>
+
+
+    </div>
+
+</body>

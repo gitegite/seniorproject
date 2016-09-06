@@ -1,0 +1,48 @@
+﻿@using SeniorProject.Models
+@model StudentProfile
+
+@{
+    ViewBag.Title = "StudentProfileView";
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+<div class="container" style="margin:0 auto;width:1200px;position:relative;">
+    <div style="background-image:url(/Media/Image/Test_BG1.jpg);margin:0 auto;width: 900px;height:500px;font-family:'Segoe UI', Times, serif;font-size:16px;border-radius:5px;overflow:auto;overflow-x:hidden;">
+            <img src="~/Media/Image/avatar.jpg" class="img-thumbnail" width="150" height="150" style="display:block; margin:0 auto; margin-top:100px;" />
+
+        <div class="panel-info">
+            <div class="panel-body" style="text-align:center">
+                <b>@Model.Name</b><br />
+                @Model.Faculty <br />
+                @Model.Major
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel-success">
+                    <div class="panel-heading" style="text-align:center;font-weight:bold;">Academic Year</div>
+                    <div class="panel-body" style="text-align:center">@Model.StudyYear</div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel-success">
+                    <div class="panel-heading" style="text-align:center;font-weight:bold;">GPA</div>
+                    <div class="panel-body" style="text-align:center">@Model.GPA</div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel-success">
+                    <div class="panel-heading" style="text-align:center;font-weight:bold;">Credit</div>
+                    <div class="panel-body" style="text-align:center">@Model.Credit</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

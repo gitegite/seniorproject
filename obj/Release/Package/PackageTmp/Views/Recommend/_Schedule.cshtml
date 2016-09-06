@@ -1,0 +1,166 @@
+﻿@using SeniorProject.Models
+@model List<StudentCourse>
+
+@{
+    string[] color = { "#FF2929", "#FFC40F", "#3498DB", "#3DCE39", "#9B59B6", "#FF8200", "#FF1290", "#7F8C8D", "#D97F63" };
+    string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    int[] starttime = { 0900, 1030, 1200, 1330, 1500, 1630, 1800, 1930, 2100 };
+    double startdiff = 0;
+    int daynum = 1;
+    int actualstart = 0;
+    int count = 0;
+    int index = 0;
+    int scheduleNum = count + 1;
+    string planlist = "";
+    string god = "";
+    int counter = 1;
+}
+
+<div>
+    @{/*Table and draw schedule*/}
+    <div style="float:left;width:500px; height:330px; margin:0 auto; margin-top:10px; margin-left:25px;position:relative">
+        <table style="width:450px; height:40px;opacity:0.7;margin-left:25px;" frame="below">
+            <tr>
+                <td width="10%"></td>
+                <td width="10%">09:00</td>
+                <td width="10%">10:30</td>
+                <td width="10%">12:00</td>
+                <td width="10%">13:30</td>
+                <td width="10%">15:00</td>
+                <td width="10%">16:30</td>
+                <td width="10%">18:00</td>
+                <td width="10%">19:30</td>
+                <td width="10%">21:00</td>
+            </tr>
+        </table>
+        <table border="1" width="450px" height="280px" style="margin-left:25px;border:1px solid;border-color:dimgrey;text-align:center;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;table-layout: fixed;text-align: center;font-size: small;">
+            <tr>
+                <td width="10%">SUN</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">MON</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">TUE</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">WED</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">THU</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">FRI</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+            <tr>
+                <td width="10%">SAT</td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+                <td width="10%"></td>
+            </tr>
+        </table>
+        @foreach (StudentCourse course in Model)
+        {
+            double UsedTime = 0;
+            planlist += course.CourseCode + ";";
+            foreach (StudentSection sec in course.Sections)
+            {
+                god += sec.CourseCode + "," + sec.SectionNumber + ";";
+                planlist += sec.CourseCode + ";";
+                foreach (StudentSectionDetail detail in sec.SectionDetails)
+                {
+                    god += sec.CourseCode + "," + detail.SectionNumber + ";";
+                    daynum = detail.DayNum;
+                    foreach (var i in starttime)
+                    {
+                        if (detail.StartTimeNum != null)
+                        {
+                            if (detail.StartTimeNum <= i)
+                            {
+                                actualstart = index;
+                                TimeSpan time = TimeSpan.Parse(detail.EndTime) - TimeSpan.Parse(detail.StartTime);
+                                UsedTime = time.TotalMinutes;
+                                index = 0;
+                                if (detail.StartTimeNum < i)
+                                {
+                                    actualstart -= 1;
+                                    string Stime = starttime[actualstart].ToString("0000").Substring(0, 2) + ":" + starttime[actualstart].ToString().Substring(2) + ":00";
+                                    TimeSpan StimeT = TimeSpan.Parse(Stime);
+                                    TimeSpan diff = (TimeSpan.Parse(detail.StartTime) - StimeT);
+                                    startdiff = diff.TotalMinutes / 90;
+                                }
+                                break;
+                            }
+                            index++;
+                        }
+
+                    }
+                    <div class="sectiondetail" style="left:@((actualstart * 45) + (startdiff * 45 ) +70 + 3)px;top:@(((daynum - 1) * 40) + 40 + 5)px;width:@(((UsedTime/90)*45) - 6)px;height:30px;background-color:@(color[count]);font-size:13px;font-weight:bold;color:white;position:absolute;border-radius: 150px;text-align:center;padding-top:5px;">
+                    </div>
+                    startdiff = 0;
+                }
+            }
+            count += 1;
+        }
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿<script>
+    $(document).ready(function () {
+        var studId = @HttpContext.Current.Session["StudentId"];
+       
+        $("#submitbtn").click(function () {
+
+            var tosend = "";
+
+            var arr = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+            for (var i = 0; i < arr.length ; ++i) {
+                var toselect = "#" + arr[i];
+                var day = arr[i];
+
+                $(toselect).find('td').each(function () {
+                    var chkbox = $(this).find("input");
+                    //alert($(toselect).attr("id"));
+                    if (chkbox.is(":checked")) {
+                        tosend += day + chkbox.attr('class') + ",1;";
+                    }
+
+                });
+            }
+            alert(tosend.substr(0, tosend.length - 1));
+            //var studentcodelist = "";
+
+            //$("#friendlistdiv").find("div.singlefriend").each(function () {
+            //    var chkbox = $(this).find("input.chkFriend");
+            //    if (chkbox.is(':checked')) {
+            //        //studentcodelist += $(this).find("div.studentCode").find("p.studentCodeP").text() + ", ";
+            //        studentcodelist += chkbox.parent().find("div.studentCode").find("p.studentCodeP").text() + ",";
+            //    }
+            //});
+
+            //studentcodelist = studentcodelist.substr(0, studentcodelist.length - 2);
+            //alert(studentcodelist);
+
+
+
+
+        });
+    });
+</script>
+
+
+
+<div>
+    <table id=" constrainttable" class="table table-responsive">
+        <tr id="header"><td></td><th style="width:90px;">A.M.</th><th style ="width:90px;">NOON</th><th style="width:90px;">P.M.</th></tr>
+        <tr id="sun">
+            <td id="kuy">SUN</td>
+            <td id="hee"><input type="checkbox" class="am" checked></td>
+            <td id="sda"><input type="checkbox" class="noon" checked></td>
+            <td id="qweqwe"><input type="checkbox" class="pm" checked></td>
+        </tr>
+        <tr id="mon"><td>MON</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+        <tr id="tue"><td>TUE</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+        <tr id="wed"><td>WED</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+        <tr id="thu"><td>THU</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+        <tr id="fri"><td>FRI</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+        <tr id="sat"><td>SAT</td><td><input type="checkbox" class="am" checked></td><td><input type="checkbox" class="noon" checked></td><td><input type="checkbox" class="pm" checked></td></tr>
+
+    </table>
+</div>
+

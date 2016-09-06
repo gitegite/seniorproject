@@ -1,0 +1,3895 @@
+
+
+@font-face {
+    font-family: 'Bariol-Regular';
+    src: url('../font/Bariol-Regular.eot?#iefix') format('embedded-opentype'), url('../font/Bariol-Regular.woff') format('woff'), url('../font/Bariol-Regular.ttf') format('truetype'), url('../font/Bariol-Regular.svg#Bariol-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+#loading-pane {
+    display: none;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    z-index: 999998;
+    background-color: #ffffff;
+}
+
+    #loading-pane img {
+        position: absolute;
+        top: 40%;
+        left: 47%;
+        z-index: 999999;
+    }
+/*@media (min-width:956px){
+body {
+    padding:0px; 
+	background-color:#eeeeee;
+    margin:0px;
+    color:#667071;
+    word-wrap:break-word;
+    background-color:#fffffe;
+}
+}
+@media (max-width:955px){
+body {
+    padding:0px; 
+	background-color:#d3d6db;
+    background-color:#cccccc;
+    margin:0px;
+    color:#667071;
+    word-wrap:break-word;
+}
+}*/
+
+/*  <color name="RED">#E50000</color>
+    <color name="dark_gray">#333333</color>
+    <color name="BLUE">#0071F3</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF2929</color>
+    <color name="yellow">#FFC40F</color>
+    <color name="blue">#3498DB</color>
+    <color name="green">#3DCE39</color>
+    <color name="purple">#9B59B6</color>
+    <color name="orange">#FF8200</color>
+    <color name="pink">#FF1290</color>
+    <color name="light_grey">#9C9C9C</color>
+    <color name="grey">#676767</color>
+    <color name="super_light_grey">#FAFAFA</color>*/
+
+body {
+    padding: 0px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background-color: #eeeeee;
+    margin: 0px;
+    word-wrap: break-word;
+    background-color: #fdfdfd;
+    font-family: 'Bariol-Regular' !important;
+}
+
+
+
+/*#414141 black text*/
+/*#eeeeee gray*/
+/*#cccccc gray bold*/
+/*#667071 gray black for text*/
+/*#3a4a5a blue black for menu*/
+/*#f5f5f5 gray for hover*/
+/*#E50000 red*/
+/*#2485DB blue*/
+/*#fffffe white*/
+
+
+.box_bottomWeb {
+    background-color: #eeeeee;
+    height: 150px;
+    width: 100%;
+    float: left;
+    margin-top: 50px;
+}
+
+.box_allTextBottomWeb {
+    width: 955px;
+    height: 150px;
+    margin: 0px auto;
+    background-color: rgba(236,240,241,0.80);
+}
+
+.loading_image {
+    /*background-image:url(../images/ajax-loader.gif) center no-repeat #fffffe;*/
+    background: url(../images/Preloader_3.gif) center no-repeat;
+    width: 100px;
+    height: 100px;
+    margin: 0px auto;
+    z-index: 0;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.loading_image_back {
+    /*background-image:url(../images/ajax-loader.gif) center no-repeat #fffffe;*/
+    background: url(../images/Preloader_3.gif) center no-repeat;
+    width: 100px;
+    height: 100px;
+    z-index: 0;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+    display: none;
+    position: fixed;
+}
+
+.popUp_messageConfirm {
+    font-size: 20px;
+    text-align: left;
+    color: #535353;
+    background-color: transparent;
+}
+
+.popUp_messageStatus {
+    background-color: #fffffe;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 2px 3px 0 #BFBFBF;
+    box-shadow: 0 2px 3px 0 #BFBFBF;
+    text-align: center;
+    padding: 20px 50px 20px 50px;
+    color: #414141;
+    display: none;
+    z-index: 0;
+    position: fixed;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+}
+
+.scroll-to-top {
+    position: fixed;
+    /*background:url(../image/scroll-to-top.png) no-repeat;*/
+    background-color: #e50000;
+    /*background: #E50000 url(../images/arrowUp.png) no-repeat center 40%;*/
+    text-align: center;
+    cursor: pointer;
+    bottom: 1em;
+    vertical-align: middle;
+    padding: 10px 13px 10px 13px;
+    right: 0px;
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+    padding-right: 1em;
+    display: none;
+    z-index: 999;
+    border-radius: 5px;
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+    .scroll-to-top:hover {
+        /*background:url(../image/scroll-to-top.png) no-repeat;*/
+        opacity: 1;
+    }
+
+.table_schedule {
+    width: 100%;
+}
+
+.td_schedule {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 2px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    /*bcbcbc*/
+    border-top-color: #bcbcbc;
+    border-top-width: 2px;
+    height: 60px;
+    font-size: 14px;
+    width: 95px;
+}
+
+.tr_schedule {
+}
+
+.th_schedule {
+    text-align: center;
+    font-size: 14px;
+    height: 20px;
+    width: 95px;
+}
+
+footer {
+    margin: 0px 0;
+}
+
+.line_hr {
+    margin-top: 10px;
+    margin-bottom: 13px;
+    border-top-color: #eeeeee;
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: left;
+    width: 100%;
+}
+
+.line_hr_list {
+    margin-top: 8px;
+    margin-bottom: 1px;
+    border-top-color: #eeeeee;
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: left;
+    width: 100%;
+}
+
+.line_hr_Acadamic {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-top-color: #eeeeee;
+    border-top-style: solid;
+    border-top-width: 1px;
+    float: left;
+    width: 100%;
+}
+
+.line_hr_all {
+    border-color: #cccccc;
+    border-style: solid;
+    border-width: 1px;
+    width: 800px;
+    margin: 0px auto;
+    padding: 0px;
+}
+
+.box_width100 {
+    float: left;
+    width: 98%;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box_all_web {
+    width: 955px;
+    margin: 0px auto;
+    margin-top: 100px;
+    color: #667071;
+}
+
+.box_banner {
+    width: 100%;
+    height: 200px;
+    background-color: #E50000;
+    margin: 0px -10px 0px 0px;
+    padding: 0px;
+}
+
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /*background: url(../images/Preloader_3.gif) center no-repeat #fff;*/
+    background-color: #ffffff;
+}
+
+.specific_memu_tap_active {
+    padding: 2px 5px 5px 5px;
+    -webkit-box-shadow: 0 1px 2px 0 #BFBFBF;
+    box-shadow: 0 1px 2px 0 #BFBFBF;
+    background-color: #fffffe;
+    outline: none;
+    border-radius: 10px;
+}
+
+    .specific_memu_tap_active:hover {
+        padding: 2px 5px 5px 5px;
+        -webkit-box-shadow: 0 1px 2px 0 #BFBFBF;
+        box-shadow: 0 1px 2px 0 #BFBFBF;
+        background-color: #fffffe;
+        outline: none;
+        border-radius: 10px;
+    }
+/********** Menu tap [top] *********/
+
+.box_button_link_menu {
+    padding: 4px 0px 0px 0px;
+    width: 83px;
+    float: left;
+    margin-top: -1px;
+}
+
+.Menu_button_open_models {
+    display: block;
+    clear: both;
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    font-size: 13px;
+    margin-top: 1px;
+    padding: 7px 10px 4px 10px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 2px;
+    color: #2c3e50;
+    outline: 0;
+    width: 150px;
+    float: left;
+    background-color: transparent;
+    margin-bottom: 3px;
+}
+
+    .Menu_button_open_models:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+        color: #2c3e50;
+    }
+
+    .Menu_button_open_models > .active > a, .Menu_button_open_models > .active > a:hover, .Menu_button_open_models > .active > a:focus {
+        text-decoration: none;
+        background-color: #f5f5f5;
+        outline: 0;
+    }
+/********************************** Schedule *************************************************/
+/********** Schedule *********/
+
+.box_layer_10 {
+    float: left;
+    width: 955px;
+}
+
+.box_layer_9 {
+    float: left;
+    width: 849px;
+}
+
+.box_layer_8 {
+    float: left;
+    width: 754px;
+}
+
+.box_layer_7 {
+    float: left;
+    width: 658px;
+}
+
+.box_layer_6 {
+    float: left;
+    width: 568px;
+}
+
+.box_layer_5 {
+    float: left;
+    width: 460px;
+}
+
+.box_layer_4 {
+    float: left;
+    width: 379px;
+}
+
+.box_layer_3 {
+    float: left;
+    width: 277px;
+}
+
+.box_layer_2 {
+    float: left;
+    width: 181px;
+}
+
+.box_layer_1 {
+    float: left;
+    width: 86px;
+}
+
+.Schedule_all_box_show_schedule {
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #eeeeee;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    background-color: #fffffe;
+    height: 300px;
+    /*-webkit-box-shadow: 0 1px 1px 0px #BFBFBF;
+    box-shadow: 0 1px 1px 0px #BFBFBF;*/
+    padding: 15px;
+    overflow: auto;
+    width: 470px;
+}
+
+.Schedule_text_name_semeter {
+    text-align: left;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    width: 450px;
+}
+
+.Schedule_button_editPresult {
+    padding: 2px 3px 2px 3px;
+    border-radius: 10px;
+    border-color: #E50000;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fffffe;
+    color: #E50000;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 70px;
+    text-align: center;
+    float: right;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+
+    .Schedule_button_editPresult:hover {
+        outline: none;
+        color: #fffffe;
+        background-color: #E50000;
+        text-decoration: none;
+    }
+
+    .Schedule_button_editPresult:focus {
+        outline: none;
+        text-decoration: none;
+    }
+
+.Schedule_button_lookat_Exam {
+    padding: 2px 3px 2px 3px;
+    border-radius: 10px;
+    border-color: #E50000;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fffffe;
+    color: #E50000;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 120px;
+    text-align: center;
+    float: right;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+
+    .Schedule_button_lookat_Exam:hover {
+        outline: none;
+        color: #fffffe;
+        background-color: #E50000;
+        text-decoration: none;
+    }
+
+    .Schedule_button_lookat_Exam:focus {
+        outline: none;
+        text-decoration: none;
+    }
+
+.Schedule_box_show_table {
+    width: 465px;
+    height: 200px;
+    float: left;
+    margin-top: 30px;
+}
+
+.Schedule_bar_table {
+    border-radius: 8px;
+    height: 35px;
+    z-index: 900;
+    position: absolute;
+    padding: 5px 3px 0px 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Schedule_bar_Indetail {
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 1000;
+    float: left;
+    width: 100%;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/********** List_Schedule *********/
+
+.Schedule_all_list_subject {
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #EEEEEE;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 12px;
+    padding: 0px 15px 15px 15px;
+    width: 390px;
+}
+
+.Schedule_IN_all_list_subject_l_box_topic {
+    font-size: 21px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    width: 420px;
+}
+
+.Schedule_box_layer_subject {
+    width: 400px;
+    position: absolute;
+    z-index: 1000;
+}
+
+.Schedule_box_each_subject {
+    margin-top: 10px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 377px;
+}
+
+.Schedule_box_day_Exam {
+    float: left;
+    margin-bottom: 9px;
+}
+
+.Schedule_box_detail_Exam {
+    float: left;
+}
+
+.Schedule_all_text_code_subject {
+    width: 90px;
+    padding: 3px 0px 3px 8px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    text-align: left;
+    float: left;
+    height: auto;
+    overflow: auto;
+}
+
+.Schedule_text_code_subject {
+    width: 56px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    text-align: left;
+    float: left;
+    /*padding:3px 3px 2px 10px;*/
+}
+
+.Schedule_text_code_subject_section {
+    width: 30px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    text-align: center;
+    float: left;
+    color: #000000;
+    z-index: 1300;
+    margin-right: 0px;
+}
+
+.Schedule_text_name_subject {
+    width: 290px;
+    padding: 3px 3px 3px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Schedule_text_day_subject {
+    width: 180px;
+    height: 23px;
+    padding: 4px 3px 2px 0px;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-size: 13px;
+    text-align: left;
+    float: left;
+    display: block;
+    overflow: auto;
+}
+
+.Schedule_text_time_subject {
+    width: 180px;
+    height: 23px;
+    padding: 4px 3px 2px 0px;
+    background-color: transparent;
+    font-size: 13px;
+    text-align: right;
+    float: right;
+    display: block;
+    overflow: auto;
+}
+
+.Schedule_text_room_subject {
+    width: 120px;
+    height: 17px;
+    padding: 0px 3px 2px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: transparent;
+    font-size: 13px;
+    text-align: left;
+    float: left;
+    margin-bottom: 0px;
+    overflow: auto;
+    padding-bottom: 0px;
+}
+
+.Schedule_text_teacher_subject {
+    width: 280px;
+    height: 15px;
+    padding: 0px 3px 2px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: transparent;
+    font-size: 13px;
+    text-align: right;
+    float: right;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+/********** Exam_Schedule *********/
+.Schedule_text_name_month_Exam {
+    width: 220px;
+    font-size: 30px;
+    height: auto;
+    overflow: auto;
+    background-color: transparent;
+    float: left;
+    padding: 5px 0px 0px 10px;
+    color: #131313;
+}
+
+.Schedule_text_name_year_Exam {
+    width: 150px;
+    font-size: 30px;
+    height: auto;
+    overflow: auto;
+    background-color: transparent;
+    float: right;
+    text-align: right;
+    padding: 5px 10px 0px 10px;
+    color: #cccccc;
+}
+
+.Schedule_all_box_show_schedule_Exam {
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #e1e1e1;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    background-color: #fffffe;
+    /*-webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;*/
+    padding: 15px;
+    overflow: auto;
+    width: 400px;
+    float: left;
+}
+
+.Schedule_IN_all_list_subject_l_box_topic_Exam {
+    font-size: 21px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    padding: 0px 0px 0px 0px;
+    width: 414px;
+}
+
+.Schedule_all_list_subject_Exam {
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #e1e1e1;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    /*-webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;*/
+    padding: 12px;
+    padding: 0px 10px 10px 10px;
+    width: 392px;
+}
+
+.Schedule_text_code_subject_Exam {
+    width: 20px;
+    padding: 7px 3px 6px 3px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 13px;
+    background-color: #555555;
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.Schedule_text_name_subject_Exam {
+    width: 200px;
+    padding: 5px 3px 2px 10px;
+    text-transform: capitalize;
+    color: #454545;
+    font-size: 16px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    font-weight: 600;
+}
+
+.Schedule_text_time_subject_Exam {
+    width: 40px;
+    padding: 2px 3px 2px 0px;
+    color: #b9b9b9;
+    background-color: transparent;
+    font-size: 13px;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+    margin-right: 16px;
+    margin-left: 4px;
+}
+
+.Schedule_text_topic_name_subject_Exam {
+    width: 305px;
+    padding: 2px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #454545;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: left;
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    overflow: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Schedule_text_room_subject_Exam {
+    width: 300px;
+    padding: 1px 3px 2px 0px;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: left;
+    float: left;
+    margin-top: 0px;
+    overflow: auto;
+    color: #454545;
+    font-weight: bold;
+}
+
+.circle_day_Exam {
+    border-radius: 50%;
+    height: 20px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #E50000;
+    background-color: transparent;
+    /*position:absolute;*/
+    width: 26px;
+    margin-left: 12px;
+    margin-top: -6px;
+    padding: 6px 0px 0px 0px;
+}
+
+.circle_number_Exam {
+    border-radius: 50%;
+    height: 14px;
+    width: 12px;
+    padding: 3px;
+    background-color: #E50000;
+    /*position:absolute;*/
+    color: #fffffe;
+    font-size: 12px;
+    text-align: center;
+    margin-top: -38px;
+    margin-left: 33px;
+    position: absolute;
+    z-index: 1000;
+}
+
+.table_Exam {
+    width: 400px;
+    height: 25px;
+    float: left;
+}
+
+.td_Exam_Weekdays {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 0px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px 0px 0px 0px;
+    color: #414141;
+    height: 50px;
+    font-size: 13px;
+    width: 57px;
+    font-family: 'Bariol-Regular';
+    float: left;
+}
+
+.td_Exam_Weekends {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 0px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px 0px 0px 0px;
+    color: #cccccc;
+    font-family: 'Bariol-Regular';
+    float: left;
+    height: 50px;
+    font-size: 13px;
+    width: 57px;
+}
+
+.tr_Exam {
+}
+
+.th_Exam {
+    font-family: 'Bariol-Regular';
+    border-bottom-style: solid;
+    border-bottom-color: #eeeeee;
+    border-bottom-width: 2px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: 13px;
+    height: 25px;
+    width: 57px;
+    color: #727272;
+    float: left;
+}
+
+/************* Progress bar ***************/
+.pie_progress {
+    text-align: center;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+    .pie_progress svg {
+        margin: 0 auto;
+    }
+
+.pie_progress__content,
+.pie_progress__number,
+.pie_progress__label,
+.pie_progress__icon {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.pie_progress__number {
+    font-size: 42px;
+    color: #667071;
+    font-weight: bold;
+    margin-top: -8px;
+}
+
+.pie_progress__label {
+    margin-top: 25px;
+    font-size: 12px;
+    color: #667071;
+}
+
+
+/********************************** Login *************************************************/
+.Body_login {
+    background-color: #F6F7F8;
+    width: auto;
+    height: auto;
+    overflow: auto;
+}
+
+.Login_all_box {
+    /*background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0,0,0,0.6) 100%);*/
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 0px 0px 0px 0px;
+    background-color: #f6f7f8;
+    width: 970px;
+    height: auto;
+    overflow: auto;
+    float: left;
+    /*border-width: 1px;
+    border-style: solid;
+    border-color: #e50000;*/
+    margin-bottom: 15px;
+    background-color: #ffffff;
+}
+
+.Login_logo {
+    float: left;
+    height: auto;
+    overflow: auto;
+    text-align: center;
+    margin-top: 0px;
+    width: 580px;
+    padding: 25px 20px 25px 20px;
+    background-color: #fff;
+    height: 189px;
+}
+
+.Login_box_input {
+    text-align: center;
+    width: 320px;
+    height: 155px;
+    padding: 15px 15px 0px 15px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0px 1px 0px #fffffe;
+    box-shadow: 0 0px 1px 0px #fffffe;
+    float: left;
+}
+
+.Login_username {
+    float: left;
+    width: 287px;
+    text-align: left;
+    background-color: #fffffe;
+    padding: 10px 15px 10px 15px;
+    border-width: 0px;
+    text-align: left;
+    color: #414141;
+    font-size: 16px;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0px 1px 0px #ECF0F1;
+    box-shadow: 0 0px 1px 0px #ECF0F1;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+    .Login_username:focus, .Login_username:active {
+        border-width: 1px;
+        border-color: #E50000;
+    }
+
+        .Login_username:hover + .iconUsername-label, .Login_username:focus + .iconUsername-label, .Login_username:active + .iconUsername-label {
+            background-position: 0 -20px;
+        }
+
+.iconUsername-label {
+    margin-top: -29px;
+    margin-right: 25px;
+    height: 20px;
+    width: 20px;
+    float: right;
+    background-image: url(../images/Login_username.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Login_password {
+    float: left;
+    width: 287px;
+    text-align: left;
+    margin-top: 15px;
+    background-color: #fffffe;
+    border-width: 0px;
+    padding: 10px 15px 10px 15px;
+    color: #414141;
+    font-size: 16px;
+    outline: none;
+    text-align: left;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0px 1px 0px #ECF0F1;
+    box-shadow: 0 0px 1px 0px #ECF0F1;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+    .Login_password:focus, .Login_password:active {
+        border-width: 1px;
+        border-color: #E50000;
+    }
+
+        .Login_password:hover + .iconPassword-label, .Login_password:focus + .iconPassword-label, .Login_password:active + .iconPassword-label {
+            background-position: 0 -20px;
+        }
+
+.iconPassword-label {
+    margin-top: -29px;
+    margin-right: 25px;
+    height: 20px;
+    width: 20px;
+    float: right;
+    background-image: url(../images/Login_password.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Login_submit {
+    color: #fffffe;
+    float: left;
+    width: 298px;
+    text-align: center;
+    /*background: url() center no-repeat;*/
+    background-color: #E50000;
+    margin-top: 18px;
+    padding: 10px 10px 10px 10px;
+    color: #fffffe;
+    font-size: 16px;
+    outline: none;
+    border-width: 0px;
+    border-radius: 5px;
+    border-style: solid;
+    font-weight: bold;
+    border-color: #fffffe;
+    border-bottom-width: 3px;
+    border-bottom-color: #b12525;
+    border-bottom-style: solid;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    outline: none;
+    cursor: pointer;
+}
+
+    .Login_submit:hover, .Login_submit:focus, .Login_submit:active {
+        /*background-color:#DD0000;*/
+        color: #fffffe;
+        text-decoration: none;
+        border-bottom-width: 1px;
+        margin-top: 20px;
+    }
+
+    .Login_submit.hover, .Login_submit.focus, .Login_submit.active {
+        /*background-color:#DD0000;*/
+        color: #fffffe;
+        text-decoration: none;
+        border-bottom-width: 3px;
+        margin-top: 18px;
+    }
+
+/********************************** News *************************************************/
+.New_left_box {
+    width: 50px;
+    border-radius: 2px;
+    border-width: 1px;
+    border-color: #e50000;
+    border-style: solid;
+    height: auto;
+    float: left;
+    margin-right: 20px;
+}
+
+.New_left_Date {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: #fffffe;
+    font-weight: bold;
+    background-color: #E50000;
+    float: left;
+}
+
+.New_left_Date_Day {
+    width: 50px;
+    text-align: center;
+    padding: 3px 0px 0px 0px;
+    color: #fffffe;
+    font-weight: bold;
+    float: left;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.New_left_Date_Month {
+    width: 50px;
+    text-align: center;
+    color: #fffffe;
+    font-weight: bold;
+    float: left;
+    font-size: 14px;
+}
+
+.New_left_Creator {
+    float: left;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    color: #e50000;
+    font-weight: bold;
+    background-color: #fffffe;
+    padding: 5px 0px 5px 0px;
+}
+
+.News_all_box {
+    float: left;
+    width: 830px;
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #eeeeee;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    background-color: #fffffe;
+    /*-webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+	box-shadow: 0 2px 3px 0px #BFBFBF;*/
+    padding: 15px 23px 15px 23px;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.News_box_topic {
+    padding: 4px 0px 8px 0px;
+    text-align: left;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 20px;
+    width: 825px;
+    border-bottom-color: #e50000;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+
+.News_box_Content {
+    padding: 4px 0px 8px 0px;
+    text-align: left;
+    font-size: 19px;
+    color: #808080;
+    float: left;
+    width: 825px;
+}
+
+.New_box_image {
+    width: 825px;
+    border-radius: 3px;
+    float: left;
+    text-align: center;
+    height: auto;
+    background-color: #fffffe;
+    border-color: #eeeeee;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 20px;
+}
+
+/********************************** Acadamic *************************************************/
+
+.Acadamic_all_box_show_schedule {
+    width: 530px;
+    border-radius: 3px;
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #eeeeee;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    background-color: #fffffe;
+    /*-webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;*/
+    padding: 15px 23px 15px 23px;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.Acadamic_text_name_semeter {
+    padding: 4px 0px 0px 0px;
+    text-align: left;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+.Acadamic_text_gpa_each_semeter {
+    width: 40px;
+    padding: 4px 10px 3px 10px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background-color: #E50000;
+    font-weight: bold;
+    color: #fffffe;
+    font-size: 13px;
+    text-align: center;
+    float: right;
+    margin-top: 0px;
+    overflow: auto;
+    margin-right: 8px;
+    margin-bottom: 20px;
+}
+
+.Acadamic_text_credit_each_semeter {
+    width: 79px;
+    padding: 4px 10px 3px 10px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background-color: #eeeeee;
+    font-weight: bold;
+    color: #535353;
+    font-size: 13px;
+    text-align: center;
+    float: right;
+    margin-top: 0px;
+    overflow: auto;
+}
+
+.Acadamic_text_code_subject {
+    width: 400px;
+    height: auto;
+    overflow: auto;
+    padding: 2px 3px 2px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    display: block;
+    margin-top: 2px;
+}
+
+.Acadamic_text_name_subject {
+    width: 400px;
+    height: auto;
+    overflow: auto;
+    padding: 7px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #535353;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    display: block;
+    margin-top: -2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Acadamic_text_grade_subject {
+    width: 25px;
+    height: 27px;
+    padding: 0px 0px 2px 0px;
+    text-transform: uppercase;
+    color: #2485DB;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: right;
+    overflow: auto;
+    display: block;
+    margin: -2px 4px 0px 0px;
+}
+
+.Acadamic_text_grade_subject_WP {
+    width: 30px;
+    height: 27px;
+    padding: 0px 0px 2px 0px;
+    text-transform: uppercase;
+    color: #9c9c9c;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: right;
+    overflow: auto;
+    display: block;
+    margin: -2px 4px 0px 0px;
+}
+
+.Acadamic_text_grade_subject_survay {
+    width: 40px;
+    height: 15px;
+    padding: 3px 3px 3px 3px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 10px;
+    background-color: transparent;
+    text-align: center;
+    float: right;
+    overflow: auto;
+    display: block;
+    margin: -6px 4px 6px 0px;
+    border-style: solid;
+    border-color: #E50000;
+    border-width: 1px;
+    border-radius: 10px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+    .Acadamic_text_grade_subject_survay:hover {
+        outline: 0;
+        color: #fffffe;
+        background-color: #E50000;
+        text-decoration: none;
+    }
+
+    .Acadamic_text_grade_subject_survay:focus {
+        outline: 0;
+        text-decoration: none;
+    }
+/********************************** RegisterPlanner *************************************************/
+
+.Register_list_resultFrom_Search {
+    float: left;
+    width: 100%;
+    padding: 3px;
+    background-color: #fffffe;
+    font-size: 15px;
+}
+
+.Register_SearchText {
+    width: 200px;
+}
+
+.Register_box_all_left {
+    width: 380px;
+    float: left;
+    padding: 0px;
+}
+
+.Register_box_all_right {
+    width: 553px;
+    float: left;
+    padding: 0px;
+    margin-left: 20px;
+}
+
+.Register_box_topic_left {
+    width: 380px;
+    font-size: 21px;
+    font-weight: bold;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    float: left;
+}
+
+
+.Register_box_topic_right {
+    width: 553px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    float: left;
+}
+
+.Register_text_number_code_subject {
+    font-weight: bold;
+    color: #fffffe;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0px auto;
+    width: 494px;
+    padding: 0px 30px 0px 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    text-transform: uppercase;
+}
+
+.Register_text_number_section {
+    font-weight: bold;
+    color: #fffffe;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    float: left;
+    text-transform: capitalize;
+}
+
+.Register_button_confirmSection {
+    position: absolute;
+    margin-left: -90px;
+    border-radius: 3px;
+    border-width: 0px;
+    background-color: #3DCE39;
+    padding: 6px 9px 6px 9px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+}
+
+.Register_box_all_search {
+    width: 360px;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 10px 10px 10px 10px;
+    height: 75vh;
+    float: left;
+}
+
+.popupMessageOK {
+    width: 90px;
+    padding: 6px 0px 7px 0px;
+    background-color: #f5f5f5;
+    float: left;
+    margin-top: -4px;
+    font-size: 15px;
+    color: #e50000;
+    font-weight: bold;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #BFBFBF;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    outline: none;
+    border-radius: 5px;
+}
+
+    .popupMessageOK:hover {
+        color: #fff;
+        background-color: #e50000;
+    }
+
+.popupMessageOK_cancel {
+    width: 90px;
+    padding: 6px 0px 7px 0px;
+    background-color: #7e8c8d;
+    float: left;
+    margin-top: -4px;
+    font-size: 15px;
+    color: #fffffe;
+    font-weight: bold;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #BFBFBF;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    outline: none;
+    border-radius: 5px;
+}
+
+    .popupMessageOK_cancel:hover {
+        color: #fff;
+        background-color: #656565;
+    }
+
+.menuBackandConfirm {
+    width: 90px;
+    padding: 6px 0px 7px 0px;
+    background-color: #fffffe;
+    float: left;
+    margin-top: -4px;
+    font-size: 15px;
+    color: #e50000;
+    font-weight: bold;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #BFBFBF;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 12px;
+    margin-top: 2px;
+    outline: none;
+    border-radius: 5px;
+}
+
+    .menuBackandConfirm:hover {
+        color: #fff;
+        background-color: #e50000;
+    }
+
+.Register_plan_box_creditLimit {
+    width: 359px;
+    padding: 10px 0px 10px 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    text-align: center;
+    color: #667071;
+    font-size: 15px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    background-color: #fffffe;
+    float: left;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.menuAddcourseOrShowSchedule {
+    width: 178px;
+    padding: 8px 0px 8px 0px;
+    background-color: #fffffe;
+    float: left;
+    margin-top: -4px;
+    font-size: 17px;
+    color: #e50000;
+    font-weight: bold;
+    border-width: 0px;
+    border-style: solid;
+    border-color: #BFBFBF;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 0px;
+    margin-top: 1px;
+    outline: none;
+}
+
+    .menuAddcourseOrShowSchedule:hover {
+        color: #fff;
+        background-color: #e50000;
+    }
+
+.Register_for_Myplan_ShowNumberOfPlan {
+    width: 20px;
+    height: 20px;
+    padding: 4px 8px 4px 8px;
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+    background-color: #e50000;
+    text-align: center;
+    margin-left: 7px;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 1100;
+}
+
+.Register_AutoComplete_SearchCourseTextBox {
+    padding: 8px 13px 8px 13px;
+    color: #414141;
+    font-size: 16px;
+    font-weight: 100;
+    border-radius: 5px;
+    width: 292px;
+    margin: 0px auto;
+    border-width: 0px;
+    outline: none;
+    float: left;
+    margin-left: 13px;
+}
+
+#clear {
+    margin-top: 6px;
+    float: left;
+    height: 21px;
+    width: 20px;
+    padding: 0px;
+    font-size: 16px;
+    text-align: center;
+    z-index: 0;
+    border-radius: 50%;
+    background-color: #667071;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+    margin-left: -30px;
+}
+
+    #clear:hover {
+        background-color: #3498DB;
+    }
+
+.Register_AutoComplete_text {
+    background-color: #fffffe;
+    padding: 10px 11px 10px 11px;
+    width: 321px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    margin-bottom: 10px;
+}
+
+    .Register_AutoComplete_text:hover {
+        background-color: #f7f7f7;
+    }
+
+.Register_AutoComplete_text_courseCode {
+    font-size: 14px;
+    font-weight: bold;
+    color: #E50000;
+    margin-bottom: 8px;
+}
+
+.Register_AutoComplete_text_courseName {
+    width: 330px;
+    font-size: 13px;
+    color: #414141;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.Register_box_result_search {
+    width: 520px;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: 75VH;
+    overflow: auto;
+    background-color: #F6F7F8;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 13px 13px 13px 19px;
+    float: left;
+    OVERFLOW-Y: scroll;
+}
+
+.Register_classLookup_box_result_search_button_selectAll {
+    padding: 7px 3px 7px 3px;
+    border-radius: 10px;
+    border-width: 0px;
+    margin-right: 3px;
+    /*border-color:#E50000;
+    border-width:1px;
+    border-style:solid;*/
+    background-color: #fffffe;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    color: #E32B1C;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    width: 322px;
+    text-align: center;
+    float: left;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+    .Register_classLookup_box_result_search_button_selectAll:hover {
+        background-color: #f5f5f5;
+        text-decoration: none;
+        outline: none;
+    }
+
+    .Register_classLookup_box_result_search_button_selectAll:focus {
+        text-decoration: none;
+        outline: none;
+    }
+
+.Register_classLookup_box_result_search_each_section {
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 495px;
+    float: left;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+    .Register_classLookup_box_result_search_each_section:hover {
+        background-color: #F5F5F5;
+    }
+
+
+.Register_box_result_search_checkbox {
+    float: left;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 45px;
+    margin-top: 7px;
+}
+
+.Register_box_result_search_checkbox_in {
+    /*position:absolute;*/
+    display: none;
+    z-index: -1000;
+    /*left:-1000px;*/
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    background-color: transparent;
+    width: 0px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+    .Register_box_result_search_checkbox_in + .css-label {
+        padding-left: 25px;
+        height: 25px;
+        display: inline-block;
+        line-height: 15px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 15px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .Register_box_result_search_checkbox_in:checked + .css-label {
+        background-position: 0 -25px;
+    }
+
+.css-label {
+    background-image: url(../images/checkBoxSectionX25.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/*******/
+
+
+.Register_box_result_search_detail_section {
+    float: left;
+    width: 120px;
+    border-right-color: #eeeeee;
+    border-right-style: solid;
+    border-right-width: 1px;
+    height: auto;
+    overflow: auto;
+    height: 41px;
+    padding: 3px;
+    margin-top: 6px;
+}
+
+.Register_box_result_search_number_section {
+    width: 100px;
+    padding: 0px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #525860;
+    background-color: transparent;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+}
+
+.Register_box_result_search_seat_section {
+    width: 100px;
+    padding: 0px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #525860;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+}
+
+.Register_box_result_search_all_rightHand {
+    width: 300px;
+    height: 56px;
+    padding: 0px;
+    float: left;
+}
+
+.Register_box_result_search_all_status {
+    width: 240px;
+    height: 30px;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 0px 30px 0px 40px;
+}
+
+.Register_box_result_search_show_empty {
+    width: 23px;
+    height: 23px;
+    float: left;
+    display: block;
+    background-color: #eeeeee;
+    border-radius: 4px;
+    padding: 3px 2px 2px 2px;
+    margin-right: 7px;
+}
+
+.Register_box_result_search_show_mornning {
+    width: 23px;
+    height: 12px;
+    float: left;
+    display: block;
+    background-color: #fffffe;
+    border-radius: 3px;
+    margin-top: 13px;
+}
+
+.Register_box_result_search_show_afternoon {
+    width: 23px;
+    height: 12px;
+    float: left;
+    display: block;
+    background-color: #fffffe;
+    border-radius: 3px;
+}
+
+.Register_box_result_search_campus {
+    width: 225px;
+    height: 10px;
+    float: left;
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    padding: 5px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #535353;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+    .Register_box_result_search_campus:focus, .Register_box_result_search_campus:hover {
+        color: #535353;
+    }
+
+
+
+/************** Plan ***************/
+
+.PreregistrationResult_ShowTopic {
+    padding: 5px 10px 5px 0px;
+    width: 190px;
+    float: left;
+    font-size: 15px;
+}
+
+.PreregistrationResult_ShowTimePre {
+    padding: 5px 10px 5px 0px;
+    width: 590px;
+    float: left;
+    font-size: 15px;
+}
+
+.PreregistrationResult_ShowStatus {
+    float: right;
+    padding: 5px 13px 5px 13px;
+    color: #fffffe;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.flip {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #eeeeee;
+    float: left;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    width: 496px;
+    height: 22px;
+    background-image: url(../images/Dropdown@1x.png);
+    background-repeat: no-repeat;
+    background-position: 227px -2px;
+}
+
+    .flip:hover {
+        background-color: #f5f5f5;
+    }
+
+    .flip:focus {
+        outline: none;
+    }
+
+.panel {
+    float: left;
+    width: 496px;
+    padding: 0px 8px 0px 8px;
+    display: none;
+    /*background-color: #EEEEEE;*/
+    background-color: transparent;
+    margin-left: -9px;
+    margin-right: -9px;
+    margin-bottom: 0px;
+}
+
+.Register_plan_box_each_subject {
+    margin-top: 10px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 10px 13px 5px 13px;
+    /*background-color: #fffffe;*/
+    height: auto;
+    overflow: auto;
+    float: left;
+}
+
+
+.Register_plan_text_code_subject {
+    width: 56px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 12px;
+    background-color: transparent;
+    border-radius: 4px;
+    text-align: left;
+    float: left;
+}
+
+.Register_plan_text_code_subject_section {
+    width: 30px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    text-align: center;
+    float: left;
+    color: #000000;
+    font-weight: bold;
+    z-index: 1300;
+    margin-right: 0px;
+}
+
+
+.Register_plan_text_name_subject {
+    width: 340px;
+    padding: 3px 3px 3px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Register_plan_text_day_subject {
+    width: 240px;
+    height: 20px;
+    padding: 4px 3px 2px 0px;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: left;
+    float: left;
+    display: block;
+    overflow: auto;
+}
+
+.Register_plan_text_time_subject {
+    width: 170px;
+    height: 20px;
+    padding: 4px 3px 2px 0px;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: right;
+    float: right;
+    display: block;
+    overflow: auto;
+}
+
+.Register_plan_text_room_subject {
+    width: 130px;
+    height: 20px;
+    padding: 0px 3px 2px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Register_plan_text_teacher_subject {
+    width: 300px;
+    height: 20px;
+    padding: 0px 3px 2px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: transparent;
+    font-size: 12px;
+    text-align: right;
+    float: right;
+    display: block;
+}
+
+.Register_plan_show_table {
+    width: 425px;
+    float: left;
+    margin-top: 20px;
+    padding-bottom: 7px;
+    border-bottom-color: #eeeeee;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.Register_plan_box_topic_right {
+    width: 553px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 8px 0px 8px 0px;
+    float: left;
+}
+
+.Register_plan_box_topic_left {
+    width: 380px;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 8px 0px 8px 0px;
+    float: left;
+}
+
+.Register_plan_box_all_search {
+    width: 360px;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #eeeeee;
+    /*-webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;*/
+    padding: 9px 8px 1px 8px;
+    float: left;
+}
+
+.Register_plan_box_result_search_NewPlan {
+    width: 529px;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    border-color: #eeeeee;
+    border-width: 2px;
+    border-style: solid;
+    /*-webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;*/
+    padding: 0px 10px 11px 10px;
+    float: left;
+}
+
+.Register_plan_box_result_search {
+    width: 529px;
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    border-width: 2px;
+    border-color: #eeeeee;
+    border-style: solid;
+    /*-webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;*/
+    padding: 0px 10px 11px 10px;
+    float: left;
+}
+
+.Register_plan_box_all_right {
+    width: 554px;
+    float: left;
+    padding: 0px;
+    margin-left: 20px;
+}
+
+.Register_plan_box_result_search_each_section {
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 4px;
+    padding: 9px 9px 0px 9px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 340px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.Register_plan_box_result_search_each_PlanLike {
+    cursor: default;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 10px 10px 0px 10px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 340px;
+    float: left;
+    margin-bottom: 10px;
+}
+/*.Register_plan_box_result_search_each_PlanLike:hover {
+    background-color:#f5f5f5;
+}*/
+.Register_box_result_search_checkbox_in_constrain_Top {
+    display: none;
+    z-index: -1000;
+    /*left:-1000px;*/
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 0px;
+    width: 0px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+    .Register_box_result_search_checkbox_in_constrain_Top + .css_constrain-label_Top {
+        padding-left: 44px;
+        height: 22px;
+        display: inline-block;
+        line-height: 15px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .Register_box_result_search_checkbox_in_constrain_Top:checked + .css_constrain-label_Top {
+        background-position: 0 -22px;
+    }
+
+.css_constrain-label_Top {
+    background-image: url(../images/checkBoxConstraintTop22.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/********----------------------------------------------------------------------------*/
+
+.Register_box_result_search_checkbox_in_constrain {
+    /*position:absolute;*/
+    display: none;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+    .Register_box_result_search_checkbox_in_constrain + .css_constrain-label {
+        padding-left: 20px;
+        height: 20px;
+        display: inline-block;
+        line-height: 15px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 15px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .Register_box_result_search_checkbox_in_constrain:checked + .css_constrain-label {
+        background-position: 0 -20px;
+    }
+
+.css_constrain-label {
+    background-image: url(../images/checkBoxConstrainX20.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/*******/
+.Register_box_result_search_checkbox_Box_heartSchedule {
+    float: right;
+    width: 30px;
+    text-align: right;
+    line-height: 45px;
+}
+
+.Register_box_result_search_checkbox_in_heartSchedule {
+    /*position:absolute;*/
+    display: none;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+    .Register_box_result_search_checkbox_in_heartSchedule + .css_heartSchedule-label {
+        padding-left: 26px;
+        height: 26px;
+        display: inline-block;
+        line-height: 15px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 15px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .Register_box_result_search_checkbox_in_heartSchedule:checked + .css_heartSchedule-label {
+        background-position: 0 -26px;
+    }
+
+.css_heartSchedule-label {
+    background-image: url(../images/heartScheduleX26.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Register_plan_box_all_constraint {
+    width: 340px;
+    height: auto;
+    overflow: auto;
+    float: left;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 3px;
+    background-color: #fffffe;
+    padding: 10px;
+}
+
+.Register_plan_text_constraint {
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Register_plan_text_numberOf_courseAndcredit {
+    width: 80px;
+    padding: 6px 4px 5px 4px;
+    text-transform: uppercase;
+    color: #667071;
+    font-size: 12px;
+    background-color: #eeeeee;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+    float: left;
+    margin-top: -2px;
+    margin-right: 10px;
+}
+
+.Register_plan_text_NumberofSchedule_Number {
+    width: 20px;
+    height: 14px;
+    padding: 6px 4px 5px 4px;
+    text-transform: uppercase;
+    color: #667071;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-top: -2px;
+    background-image: url(../images/HeartNumberSchedule.png);
+}
+
+.Register_plan_text_NumberofSchedule_unit {
+    width: 65px;
+    padding: 6px 4px 5px 4px;
+    text-transform: uppercase;
+    color: #667071;
+    font-size: 12px;
+    background-color: transparent;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+    float: right;
+    margin-top: -2px;
+}
+
+.Register_plan_box_list_subject_ {
+    width: 341px;
+    padding: 0px 8px 0px 11px;
+    background-color: transparent;
+    float: left;
+    display: block;
+    overflow: auto;
+    height: auto;
+    cursor: pointer;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+    .Register_plan_box_list_subject_:hover {
+        background-color: #F5F5F5;
+    }
+
+.Register_plan_box_list_select_subject_ {
+    width: 336px;
+    padding: 10px 8px 10px 11px;
+    text-transform: uppercase;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    display: block;
+    overflow: auto;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: auto;
+}
+
+    .Register_plan_box_list_select_subject_:hover {
+        background-color: #f5f5f5;
+    }
+
+.Register_plan_box_list_select_subject_Myplan {
+    width: 336px;
+    padding: 10px 8px 10px 11px;
+    text-transform: uppercase;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    display: block;
+    overflow: auto;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: auto;
+    cursor: pointer;
+}
+
+    .Register_plan_box_list_select_subject_Myplan:hover {
+        background-color: #f5f5f5;
+    }
+
+.Register_plan_mark_show_colorSubject {
+    width: 7px;
+    float: left;
+    height: 30px;
+    margin: 0px 11px 0px 0px;
+    border-radius: 8px;
+    background-color: #eeeeee;
+}
+
+.Register_plan_numberChair {
+    font-size: 12px;
+    border-width: 2px;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    color: #414141;
+    width: 23px;
+    padding: 2px 0px 2px 0px;
+    height: 12px;
+    border-style: solid;
+    float: left;
+    margin-right: 13px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.Register_plan_genPlan_imageChair {
+    float: left;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    border-width: 0px;
+    outline: none;
+    padding: 0px 0px 0px 15px;
+    background: url(../images/chairSeat.png) no-repeat center;
+    width: 5px;
+    height: 20px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.Register_plan_markBin_list_select_subject {
+    width: 23px;
+    height: 26px;
+    margin-right: 15px;
+    margin-left: 5px;
+    float: left;
+    text-align: left;
+    display: block;
+    margin-top: 8px;
+    padding: 0px 0px 0px 5px;
+    background-color: transparent;
+    border-width: 0px;
+    outline: none;
+    background-image: url(../images/iconBin26.png);
+}
+
+.Register_plan_Paid_list_select_subject {
+    width: 23px;
+    height: 26px;
+    margin-right: 15px;
+    margin-left: 5px;
+    float: left;
+    text-align: left;
+    display: block;
+    margin-top: 8px;
+    padding: 0px 0px 0px 5px;
+    background-color: transparent;
+    border-width: 0px;
+    outline: none;
+    background-image: url(../images/iconPaid26.png);
+}
+
+.Register_plan_code_list_select_subject {
+    width: 300px;
+    float: left;
+    font-size: 13px;
+    padding: 0px;
+    color: #E50000;
+    font-weight: bold;
+    background-color: transparent;
+    text-align: left;
+    text-transform: uppercase;
+    height: auto;
+    overflow: auto;
+}
+
+.Register_plan_name_list_select_subject {
+    width: auto;
+    float: left;
+    font-size: 12px;
+    padding: 4px 0px 4px 0px;
+    background-color: transparent;
+    text-align: left;
+    text-transform: uppercase;
+    height: auto;
+    overflow: auto;
+    font-weight: bold;
+    color: #667071;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Register_plan_numberOfSelect_list_select_subject {
+    width: 280px;
+    float: left;
+    font-size: 10px;
+    padding: 0px;
+    background-color: transparent;
+    text-align: left;
+    text-transform: uppercase;
+    height: auto;
+    overflow: auto;
+    color: #667071;
+    margin-left: 0px;
+}
+
+.Register_plan_button_lookat_Exam {
+    padding: 2px 3px 2px 3px;
+    border-radius: 10px;
+    border-color: #E50000;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fffffe;
+    color: #E50000;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 120px;
+    text-align: center;
+    float: right;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+
+    .Register_plan_button_lookat_Exam:hover {
+        background-color: #E50000;
+        color: #fffffe;
+        text-decoration: none;
+        outline: none;
+    }
+
+    .Register_plan_button_lookat_Exam:focus {
+        text-decoration: none;
+        outline: none;
+    }
+
+.Register_plan_button_backToListMyPlan {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e50000;
+    margin-bottom: 9px;
+    display: none;
+    width: 335px;
+    padding: 4px 0px 4px 0px;
+    background-color: #fffffe;
+    float: left;
+    font-size: 15px;
+    color: #e50000;
+    font-weight: bold;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-top: -2px;
+    outline: none;
+    border-radius: 5px;
+    z-index: 1100;
+}
+
+    .Register_plan_button_backToListMyPlan:hover {
+        color: #fff;
+        background-color: #e50000;
+    }
+
+.Register_show_schedule {
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 15px 17px 8px 17px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 496px;
+    float: left;
+    margin-top: 11px;
+}
+
+.Register_show_schedule_topic {
+    text-align: left;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    width: 330px;
+}
+
+.Register_show_schedule_button_like {
+    float: right;
+    height: 20px;
+    width: 20px;
+    display: block;
+    background-color: #BFBFBF;
+    margin-top: -3px;
+    margin-right: -3px;
+}
+
+.Register_Edit_SelectedSection_Save {
+    border-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #E50000;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 10px 5px 10px 5px;
+    width: 495px;
+    text-align: center;
+    float: left;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+    text-transform: capitalize;
+    margin-top: 10px;
+    border-width: 0px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+    .Register_Edit_SelectedSection_Save:hover, .Register_Edit_SelectedSection_Save:focus {
+        outline: none;
+        color: #fffffe;
+        background-color: #d8291b;
+        text-decoration: none;
+    }
+
+.Constraints_box_show_table {
+    width: 325px;
+    height: auto;
+    float: left;
+    padding: 0px 5px 0px 5px;
+}
+
+.table_constraints {
+    width: 100%;
+}
+
+.td_constraints {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 0px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    border-top-color: #bcbcbc;
+    border-top-width: 0px;
+    height: 35px;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+}
+
+.tr_constraints {
+}
+
+.th_constraints {
+    text-align: center;
+    font-size: 12px;
+    height: 20px;
+    width: 40px;
+    margin: 0px auto;
+}
+
+.Constraints_box_text_topic_date {
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    width: 40px;
+    height: auto;
+    margin: 0px auto;
+    cursor: pointer;
+}
+
+    .Constraints_box_text_topic_date:hover {
+        background-color: #e6e6e6;
+    }
+
+
+/***** Detail Section *******/
+.table_schedule_DetailSection {
+    width: 405px;
+    margin: 0px auto;
+}
+
+.td_schedule_DetailSection {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    /*bcbcbc*/
+    border-top-color: #bcbcbc;
+    border-top-width: 1px;
+    height: 25px;
+    font-size: 12px;
+    width: 48px;
+}
+
+.tr_schedule_DetailSection {
+    width: 48px;
+}
+
+.th_schedule_DetailSection {
+    text-align: center;
+    font-size: 12px;
+    height: 20px;
+    width: 48px;
+    border-width: 0px;
+    border-style: solid;
+    font-weight: bold;
+}
+/**----------------------*/
+
+
+/***** Schedule Planner *******/
+.table_schedule_planner {
+    width: 481px;
+    margin: 0px auto;
+}
+
+.td_schedule_planner {
+    /*b5b5b5*/
+    border-color: #e9e9e9;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    font-weight: bold;
+    /*bcbcbc*/
+    border-top-color: #bcbcbc;
+    border-top-width: 1px;
+    height: 25px;
+    font-size: 12px;
+    width: 53px;
+}
+
+.tr_schedule_planner {
+    width: 53px;
+}
+
+.th_schedule_planner {
+    text-align: center;
+    font-size: 12px;
+    height: 20px;
+    width: 53px;
+    border-width: 0px;
+    border-style: solid;
+    font-weight: bold;
+}
+
+.Schedule_bar_table_planner {
+    border-radius: 8px;
+    height: 12px;
+    z-index: 900;
+    position: absolute;
+}
+
+
+/********** Grade Estimation *********/
+
+.Grade_Estimation_box_all_progress_bar {
+    border-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    height: 300px;
+    background-color: #fffffe;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 15px;
+    overflow: auto;
+    width: 370px;
+}
+
+.Grade_Estimation_text_topic {
+    font-size: 21px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    width: 420px;
+}
+
+.Grade_Estimation_all_list_subject {
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #EEEEEE;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 12px;
+    padding: 0px 15px 15px 15px;
+    width: 390px;
+}
+
+.Grade_Estimation_button_save {
+    border-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #E50000;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 12px 5px 12px 5px;
+    width: 440px;
+    text-align: center;
+    float: left;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+    text-transform: capitalize;
+    margin-left: -15px;
+    margin-bottom: -15px;
+    margin-top: 20px;
+}
+
+    .Grade_Estimation_button_save:hover, .Grade_Estimation_button_save:focus {
+        outline: none;
+        color: #fffffe;
+        background-color: #d8291b;
+        text-decoration: none;
+    }
+
+.Grade_Estimation_button_cancel {
+    margin-top: 20px;
+    margin-bottom: -15px;
+    border-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #535353;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 12px 5px 12px 5px;
+    width: 438px;
+    text-align: center;
+    float: left;
+    font-size: 19px;
+    font-weight: bold;
+    color: #fffffe;
+    text-transform: capitalize;
+    margin-right: -15px;
+}
+
+    .Grade_Estimation_button_cancel:hover, .Grade_Estimation_button_cancel:focus {
+        outline: none;
+        color: #fffffe;
+        text-decoration: none;
+        background-color: #4d4d4e;
+    }
+
+.Grade_Estimation_box_each_subject {
+    margin-top: 15px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 13px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 365px;
+}
+
+.Grade_Estimation_text_code_subject {
+    width: 270px;
+    height: 23px;
+    padding: 2px 3px 2px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    display: block;
+    margin-top: 2px;
+}
+
+.Grade_Estimation_text_name_subject {
+    width: 270px;
+    height: 23px;
+    padding: 0px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #535353;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    display: block;
+    margin-top: -2px;
+}
+
+.Grade_Estimation_select_box {
+    width: 60px;
+    padding: 10px 6px 10px 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2485DB;
+    border-color: #2485DB;
+    border-width: 2px;
+    border-radius: 30px;
+    text-transform: uppercase;
+}
+
+    .Grade_Estimation_select_box > span {
+        width: 20px;
+        padding: 8px 5px 8px 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #2485DB;
+        border-color: #2485DB;
+        border-width: 2px;
+        border-radius: 30px;
+    }
+
+.Class_Search_box_topic {
+    background-color: #E50000;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    width: 425px;
+    overflow: auto;
+    height: auto;
+    margin-left: -10px;
+}
+
+.Class_Search_text_number_code_subject {
+    font-weight: bold;
+    color: #fffffe;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    float: left;
+    text-transform: uppercase;
+}
+
+.Class_Search_text_number_section {
+    font-weight: bold;
+    color: #fffffe;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    float: left;
+    text-transform: capitalize;
+}
+
+.Class_Search_all_list_subject {
+    border-radius: 3px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    height: auto;
+    overflow: auto;
+    background-color: #F6F7F8;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 12px;
+    padding: 0px 10px 10px 10px;
+    width: 405px;
+}
+
+.Class_Search_box_detail_section {
+    margin-top: 10px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+}
+
+.Class_Search_text_code_subject {
+    width: 200px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.Class_Search_text_name_subject {
+    width: 355px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    margin: 5px 0px 5px 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Class_Search_text_seats_section {
+    width: 80px;
+    padding: 3px 3px 3px 3px;
+    text-transform: uppercase;
+    color: #fffffe;
+    font-size: 13px;
+    background-color: #E50000;
+    font-weight: bold;
+    border-radius: 3px;
+    text-align: center;
+    float: right;
+    margin-top: -2px;
+}
+
+.Class_Search_text_remark_campus {
+    width: 360px;
+    height: auto;
+    overflow: auto;
+    float: left;
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    padding: 3px 0px 0px 0px;
+    text-transform: uppercase;
+}
+
+.Class_Search_text_mark_subject_status {
+    width: 12px;
+    height: 12px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    background: url(../images/iconCorrectX12.png) no-repeat center center;
+    margin-right: 3px;
+}
+
+.Class_Search_text_code_subject_status {
+    margin-left: 8px;
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Class_Search_text_name_subject_status {
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 12px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+    margin-left: 8px;
+}
+
+.Class_Search_text_topic_midterm_and_final {
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    color: #667071;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Class_Search_text_date_time_midterm_and_final {
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: right;
+    float: right;
+    overflow: auto;
+}
+
+.Class_Search_text_date_time_midterm_and_final {
+    width: auto;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: right;
+    float: right;
+    overflow: auto;
+}
+
+.Class_Search_text_day {
+    width: 150px;
+    padding: 0px 0px 11px 0px;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Class_Search_text_time {
+    width: 150px;
+    padding: 0px 0px 11px 0px;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: right;
+    float: right;
+    overflow: auto;
+}
+
+.Class_Search_text_room {
+    width: 100px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: left;
+    float: left;
+    overflow: auto;
+}
+
+.Class_Search_text_teacher {
+    width: 250px;
+    padding: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: transparent;
+    text-align: right;
+    float: right;
+    overflow: auto;
+}
+
+
+.Calendar_box_semester {
+    width: 346px;
+    border-radius: 3px;
+    height: auto;
+    overflow: auto;
+    background-color: #EEEEEE;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    float: left;
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    border-top-color: #6d6d6d;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    padding: 10px 10px 4px 10px;
+}
+
+.Calendar_text_topic {
+    width: 282px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 9px 0px 9px 0px;
+    float: left;
+}
+
+.Calender_box_devide_each_year {
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 10px 9px 5px 9px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 327px;
+    float: left;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+    .Calender_box_devide_each_year:hover {
+        background-color: #f7f7f7;
+    }
+
+.Calendar_text_topic_year {
+    padding: 4px 0px 0px 7px;
+    text-align: left;
+    font-size: 15px;
+    text-transform: capitalize;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 10px;
+    width: 150px;
+}
+
+.Calendar_text_topic_year_number {
+    padding: 4px 0px 0px 0px;
+    text-align: right;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: right;
+    margin-bottom: 14px;
+    width: auto;
+}
+
+.Calendar_text_list_each_semester {
+    width: 231px;
+    height: 29px;
+    padding: 7px 15px 7px 15px;
+    text-transform: capitalize;
+    color: #667071;
+    background-color: transparent;
+    font-size: 15px;
+    text-align: left;
+    float: left;
+    display: block;
+    overflow: auto;
+    font-weight: bold;
+    margin-left: -9px;
+    border-width: 0px;
+    outline: none;
+    text-transform: capitalize;
+}
+
+    .Calendar_text_list_each_semester:hover {
+        background-color: #f5f5f5;
+        color: #667071;
+        text-decoration: none;
+        outline: none;
+    }
+
+    .Calendar_text_list_each_semester:focus {
+        text-decoration: none;
+        color: #667071;
+        outline: none;
+    }
+
+.Calendar_text_list_each_semester_GPA_New {
+    float: right;
+    padding: 5px 5px 5px 5px;
+    font-size: 13px;
+    color: #fffffe;
+    width: 40px;
+    font-weight: bold;
+    background-color: #E50000;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.Calendar_text_list_each_semester_Credit_New {
+    float: right;
+    padding: 5px 5px 5px 5px;
+    font-size: 13px;
+    color: #333333;
+    width: 75px;
+    font-weight: bold;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 7px;
+}
+
+.Calendar_text_list_each_semester_GPA {
+    height: 20px;
+    float: right;
+    padding: 0px 0px 0px 0px;
+    font-size: 15px;
+    color: #E50000;
+    width: 35px;
+    font-weight: bold;
+    margin-top: -28px;
+}
+
+.Calendar_text_topic_show_calendar {
+    width: 653px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #E50000;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 9px 0px 9px 0px;
+    float: left;
+}
+
+.Calendar_box_all_show_calendar {
+    width: 606px;
+    border-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: #E50000;
+    height: auto;
+    background-color: #fffffe;
+    -webkit-box-shadow: 0 2px 3px 0px #BFBFBF;
+    box-shadow: 0 2px 3px 0px #BFBFBF;
+    padding: 15px 23px 15px 23px;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+.Calendar_text_show_calendar_topic_month {
+    padding: 4px 0px 0px 0px;
+    text-align: left;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 14px;
+    width: auto;
+    width: 400px;
+}
+
+.Calendar_text_show_calendar_topic_year_number {
+    padding: 4px 0px 0px 0px;
+    text-align: right;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #E50000;
+    font-weight: bold;
+    float: right;
+    margin-bottom: 14px;
+    width: auto;
+}
+
+.Calendar_box_show_calendar_each_day {
+    width: 606px;
+    height: 62px;
+    float: left;
+    padding: 0px;
+}
+
+.Calendar_mark_show_calendar {
+    width: 10px;
+    float: left;
+    height: 30px;
+    margin: 16px 11px 0px 0px;
+    border-radius: 8px;
+}
+
+.Calender_box_for_show_date {
+    background-color: #f5f5f5;
+    width: 70px;
+    height: 40px;
+    padding: 11px 4px 11px 4px;
+    float: left;
+    border-radius: 5px;
+}
+
+.Calendar_text_show_day {
+    width: 70px;
+    text-transform: uppercase;
+    color: #3a4a5a;
+    background-color: transparent;
+    font-size: 10px;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+    font-weight: bold;
+}
+
+.Calendar_text_show_date {
+    width: 70px;
+    text-transform: uppercase;
+    color: #3a4a5a;
+    background-color: transparent;
+    font-size: 30px;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+    font-weight: bold;
+}
+
+.Calendar_text_show_detail_day {
+    width: 480px;
+    height: 62px;
+    padding: 0px 10px 0px 15px;
+    text-transform: uppercase;
+    background-color: transparent;
+    font-size: 13px;
+    float: left;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: normal;
+    text-align: left;
+}
+
+
+/************  Profile  ************/
+
+.box_layer_forProfile {
+    width: 955px;
+    margin: 0px auto;
+    height: auto;
+    overflow: auto;
+    background-color: #fffffe;
+    -webkit-box-shadow: 0 1px 2px 0 #BFBFBF;
+    box-shadow: 0 1px 2px 0 #BFBFBF;
+    padding: 0px 0px 8px 0px;
+}
+
+.box_header_profile {
+    width: 955px;
+    height: 250px;
+    background-color: #BFBFBF;
+    background: url(../images/BG01@2x.png) no-repeat center center;
+    background-size: cover;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.box_image_profile {
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+    margin: 0px auto;
+    border-radius: 4px;
+    background-color: #fffffe;
+    margin-top: -130px;
+}
+
+.text_name_profile {
+    width: 955px;
+    float: left;
+    text-align: center;
+    font-size: 21px;
+    color: #E50000;
+    font-weight: bold;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.text_faculty_profile {
+    width: 955px;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 9px;
+    color: #414141;
+    text-transform: uppercase;
+}
+
+.text_major_profile {
+    width: 955px;
+    float: left;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 9px;
+    color: #333333;
+    text-transform: uppercase;
+}
+
+.box_status_profile {
+    width: 305px;
+    margin-left: 10px;
+    height: 70px;
+    margin-top: 25px;
+    background-color: #f5f5f5;
+    float: left;
+}
+
+.icon_status_profile {
+    width: 60px;
+    height: 35px;
+    float: left;
+    margin-left: 90px;
+    text-align: center;
+    padding: 10px 0px 0px 0px;
+}
+
+.box_information_status_profile {
+    width: 60px;
+    float: left;
+    height: 40px;
+    margin-top: 13px;
+    margin-left: 12px;
+}
+
+.information_status_profile {
+    width: 60px;
+    float: left;
+    color: #414141;
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.unit_status_profile {
+    width: 60px;
+    float: left;
+    color: #333333;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.box_addingMenu_profile {
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 300px;
+    height: 100px;
+    background-color: #fffffe;
+    float: left;
+    margin-left: 14px;
+    -webkit-box-shadow: 0 1px 2px 0 #BFBFBF;
+    box-shadow: 0 1px 2px 0 #BFBFBF;
+    cursor: pointer;
+}
+
+.icon_Button_bottom_othersView {
+    width: 60px;
+    height: 35px;
+    float: left;
+    margin-left: 70px;
+    text-align: center;
+    margin-top: 23px;
+}
+
+.box_informationText_Button_bottom_othersView {
+    width: 150px;
+    float: left;
+    height: 30px;
+    margin-top: 13px;
+    margin-left: 12px;
+    margin-top: 35px;
+}
+
+.information_textInformation_Button_bottom_othersView {
+    width: 100px;
+    float: left;
+    color: #414141;
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/*************  Class look up  ****************/
+
+.inputRight {
+    padding: 8px 10px 8px 10px;
+    font-size: 17px;
+    width: 150px;
+    height: 18px;
+    border-radius: 6px 0px 0px 6px;
+    border-width: 1px;
+    border-color: #cccccc;
+    border-left-width: 0px;
+    outline: none;
+    color: #414141;
+    float: left;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 10px;
+}
+
+    .inputRight:focus {
+        border-color: #5daedd;
+        -webkit-box-shadow: 0 0px 8px 0px #5daedd;
+        box-shadow: 0 0px 8px 0px #5daedd;
+    }
+
+
+.iconInput_search {
+    padding: 8px 12px 8px 12px;
+    text-align: center;
+    background-color: #e50000;
+    border-radius: 0px 6px 6px 0px;
+    border-width: 1px;
+    border-color: #e50000;
+    border-style: solid;
+    height: 18px;
+    width: auto;
+    float: left;
+    color: #fff;
+    width: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: url(../images/search20.png) center no-repeat #e50000;
+}
+
+    .iconInput_search:hover {
+        background-color: #d70000;
+    }
+
+.iconInput_left {
+    padding: 8px 12px 8px 12px;
+    text-align: center;
+    background-color: #eeeeee;
+    border-radius: 6px 0px 0px 6px;
+    border-width: 1px;
+    border-color: #cccccc;
+    border-style: solid;
+    height: 18px;
+    width: auto;
+    float: left;
+    color: #414141;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.textblock {
+    padding: 8px 10px 8px 10px;
+    font-size: 17px;
+    width: 250px;
+    height: 18px;
+    border-radius: 0px 6px 6px 0px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-left-width: 0px;
+    outline: none;
+    color: #414141;
+    float: left;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    margin-bottom: 10px;
+    margin-right: 15px;
+}
+
+.th_management {
+    text-align: center;
+    font-size: 15px;
+    height: 20px;
+    width: 95px;
+    padding: 4px 0px 4px 0px;
+    background-color: #eeeeee;
+    color: #333333;
+    border-color: #cccccc;
+    border-width: 2px;
+    border-style: solid;
+    font-weight: bold;
+}
+
+.td_management_odd {
+    border-color: #cccccc;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    border-top-color: #cccccc;
+    border-top-width: 1px;
+    height: 20px;
+    font-size: 14px;
+    padding: 4px 0px 4px 0px;
+    width: 95px;
+    background-color: #fafafa;
+    color: #333333;
+}
+
+.td_management_even {
+    border-color: #cccccc;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    border-top-color: #cccccc;
+    border-top-width: 1px;
+    height: 20px;
+    font-size: 14px;
+    padding: 4px 0px 4px 0px;
+    width: 95px;
+    background-color: #fff;
+    color: #333333;
+}
+
+.table_schedule {
+    width: 100%;
+}
+
+.Main_div {
+    width: 950px;
+    float: left;
+    margin: 0 auto;
+}
+
+.Academic_box {
+    float: left;
+    width: 800px;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 50px;
+    -webkit-box-shadow: 1px 1px 3px 1px #8A7675;
+    box-shadow: 1px 1px 3px 1px #8A7675;
+    border:1px solid;
+    border-color:green;
+}
+
+.left_float_Sem_Subject {
+    float: left;
+    width: 500px;
+    height: 25px;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: 5px 5px;
+}
+
+.right_float_Sem_Subject {
+    float: right;
+    width: 100px;
+    height: 25px;
+    border: 1px solid;
+    border-color: blue;
+    margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hr_subject {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}

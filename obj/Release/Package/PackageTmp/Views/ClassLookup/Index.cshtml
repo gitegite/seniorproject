@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Class Lookup</title>
+    <style type='text/css'>
+        th {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        td {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("GetClassLookup",
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                UpdateTargetId = "TEST"
+            }))
+        {
+            <label>CourseCode: </label>
+            <input type="text" name="courseCode" />
+            <label>Semester: </label>
+            <input type="text" name="semester" />
+            <label>Year: </label>
+            <input type="text" name="year" />
+            <input type="submit" value="search" />
+        }
+        <div id="TEST">
+        </div>
+    </div>
+</body>
+</html>

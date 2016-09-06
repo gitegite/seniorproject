@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SeniorBro" Class="ParazoDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=opk64kkdi2.database.windows.net;Initial Catalog=SeniorBro;User ID=parazo" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SeniorBroConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.StudentConstraint" Member="StudentConstraints">
+    <Type Name="StudentConstraint">
+      <Column Name="StudentCode" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ConstraintList" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="FriendConstraint" Type="System.String" DbType="VarChar(700)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Course" Member="Courses">
+    <Type Name="Course">
+      <Column Name="CourseID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FacultyCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="NameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Credit" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreditSum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreditWeight" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Enrollment" Member="Enrollments">
+    <Type Name="Enrollment">
+      <Column Name="EnrollmentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SectionID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="StudentCode" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="Sequence" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SectionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PaidFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Friend" Member="Friends">
+    <Type Name="Friend">
+      <Column Name="StudentCode" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FriendFacebookID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FriendStatus" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FriendRelation" Member="FriendRelations">
+    <Type Name="FriendRelation">
+      <Column Name="RelationID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentFacebookID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FriendFacebookID" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="FriendStatus" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grade" Member="Grades">
+    <Type Name="Grade">
+      <Column Name="GradeID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StudentCode" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SectionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Sequence" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="FinalGrade" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="SurveyStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Instructor" Member="Instructors">
+    <Type Name="Instructor">
+      <Column Name="InstructorID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InstructorCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstNameEN" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LastNameEN" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="FirstNameTH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LastNameTH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Char" DbType="NChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="FacultyCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="RoomCode" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SavedPlan" Member="SavedPlans">
+    <Type Name="SavedPlan">
+      <Column Name="StudentCode" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PlanList" Type="System.String" DbType="VarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SavedSchedule" Member="SavedSchedules">
+    <Type Name="SavedSchedule">
+      <Column Name="StudentCode" Type="System.String" DbType="VarChar(9) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PlanList" Type="System.String" DbType="VarChar(300) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ScheduleList" Type="System.String" DbType="VarChar(1000) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SavedIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SavedFrom" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Section" Member="Sections">
+    <Type Name="Section">
+      <Column Name="SectionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SemesterCourseID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SectionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="IsClosed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SeatAvailable" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SeatLimit" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SeatUsed" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Remark" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MidtermDate" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MidtermStartTime" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="MidtermEndTime" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
+      <Column Name="MidtermStart" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="MidtermEnd" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MidtermRoom" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="FinalDate" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="FinalStartTime" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="FinalEndTime" Type="System.String" DbType="NChar(5)" CanBeNull="true" />
+      <Column Name="FinalStart" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="FinalEnd" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FinalRoom" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SectionDetail" Member="SectionDetails">
+    <Type Name="SectionDetail">
+      <Column Name="SectionDetailID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SectionID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SectionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Day" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Start" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.String" DbType="NChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="[End]" Member="End" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="InstructorCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RoomCode" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="IsMorning" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SemesterCourse" Member="SemesterCourses">
+    <Type Name="SemesterCourse">
+      <Column Name="SemesterCourseID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CourseCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="StudentID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentCode" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="BatchCode" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="TitleCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="TitleNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="TitleNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="LevelCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="LevelNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="LevelNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="FirstNameEN" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="LastNameEN" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstNameTH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LastNameTH" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Char" DbType="NChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="NationCode" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="NationNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="NationNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="ProgramCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="ProgramNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="ProgramNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="FacultyCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FacultyNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="FacultyNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DepartmentCode" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentNameEN" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentNameTH" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Status1" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status2" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status3" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status4" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status5" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status6" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status7" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status8" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status9" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status10" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status11" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status12" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status13" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status14" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status15" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status16" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status17" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status18" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status19" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status20" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status21" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status22" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status23" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status24" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status25" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status26" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status27" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status28" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status29" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status30" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status31" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status32" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status33" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="CurrentGPA" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentCredit" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="CreditLimit" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="CreditComplete" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Gpts" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EmailAU" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="EmailPersonal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PreregisteredCount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="AdmissionTypeCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Facebook_ID" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BinaryImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Facebook_AccessToken" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

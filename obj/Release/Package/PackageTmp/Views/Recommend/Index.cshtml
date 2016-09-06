@@ -1,0 +1,187 @@
+﻿@{
+    Layout = "~/Views/Shared/master_template.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Section Suggestion</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="@Url.Content("~/RecommenderController.js")"></script>
+</head>
+<body ng-app="RecommenderApp" ng-controller="RecommendCtrl">
+    <script>
+        fadeloop('.{{editCourseCode}}', 1000, 1000, true);
+        function fadeloop(el, timeout, timein, loop) {
+            var $el = $(el), intId, fn = function () {
+                $el.fadeOut(timeout).fadeIn(timein);
+            };
+            fn();
+            if (loop) {
+                intId = setInterval(fn, timeout + timein + 100);
+                return intId;
+            }
+            return false;
+        }
+    </script>
+    <div class="container" style="width:1200px;margin:0 auto;">
+        @{/*Head for description & section suggestion*/}
+        <div style="width:840px; height:100px; margin-left:180px; margin-bottom:15px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+            <p style="display:inline;">System cannot complete the pre-registration process Due to 0 seats in the following subjects : </p>
+            <p style="display:inline-block;font-weight:bold;" ng-repeat="conf in conflicts">{{ conf }}&nbsp;</p>
+            <br />
+            <p style="display:inline-block;">Current Selected :</p>
+            @{int indexer = 0;}
+            <div ng-repeat="(key,val) in SelectSubjects" style="display:inline;">
+                <div style="display:inline-block;width:7px;height:5px;padding-top:10px;background-color:{{colorValue[key]}}"></div>
+                <div style="display:inline-block;font-weight:bold;">{{SelectSubjects[key]}} [{{SelectSections[key]}}]</div>
+            </div>
+        </div>
+        @{/*Subject Selection*/}
+        <div id="subject" style="overflow:scroll;float:left;width:200px; height:400px; margin: 0 auto; margin-left:130px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+            <table class="table table-hover">
+                <tr ng-repeat="course in conflicts" ng-click="getSections(course)">
+                    <td>{{course}}</td>
+                </tr>
+            </table>
+        </div>
+        @{/*Section Selection*/}
+        <div id="section" style="overflow:scroll;float:left;width:200px; height:400px;margin: 0 auto; margin-left:20px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+            <table class="table table-hover">
+                <tr ng-repeat="section in sections" ng-click="drawSchedule(selectedCourseCode, section.SectionNumber)">
+                    <td>
+                        <div align="center">
+                            {{section.SectionNumber}}
+                            <div ng-if="section.SeatAvailable <= 1">{{section.SeatAvailable}} SEAT</div>
+                            <div ng-if="section.SeatAvailable > 1">{{section.SeatAvailable}} SEATS</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-repeat="detail in section.SectionDetails">
+                            {{detail.Instructor}}
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        @{/*Outcome Schedule*/}
+        <div id="drawing" style="float:left;width:500px; height:400px;margin: 0 auto; margin-left:20px;-webkit-box-shadow: 1px 1px 1px 2px #DECFCE;box-shadow: 1px 1px 1px 2px #DECFCE;">
+            <div style="position:relative;">
+                <table style="width:450px; height:40px;opacity:0.7;margin-left:25px;" frame="below">
+                    <tr>
+                        <td width="10%"></td>
+                        <td width="10%">09:00</td>
+                        <td width="10%">10:30</td>
+                        <td width="10%">12:00</td>
+                        <td width="10%">13:30</td>
+                        <td width="10%">15:00</td>
+                        <td width="10%">16:30</td>
+                        <td width="10%">18:00</td>
+                        <td width="10%">19:30</td>
+                        <td width="10%">21:00</td>
+                    </tr>
+                </table>
+                <table border="1" width="450px" height="280px" style="margin-left:25px;border:1px solid;border-color:dimgrey;text-align:center;-webkit-box-shadow: 1px 1px 3px 1px #8A7675;box-shadow: 1px 1px 3px 1px #8A7675;table-layout: fixed;text-align: center;font-size: small;">
+                    <tr>
+                        <td width="10%">SUN</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">MON</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">TUE</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">WED</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">THU</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">FRI</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                    <tr>
+                        <td width="10%">SAT</td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                        <td width="10%"></td>
+                    </tr>
+                </table>
+                <div ng-repeat="(key,val) in dayNum track by $index">
+                    <div class="sectiondetail {{subjectList[key]}}"
+                         style="left:{{(((actualStart[key]) * 45) + (startdiff[key] * 45 ) +70 + 3)}}px;top :{{(((dayNum[key] - 1) * 40) + 40 + 5)}}px;width :{{(((usedTime[key] / 90) * 45) - 6)}}px;height: 30px; background-color :{{usedColor[key]}}; font-size :13px; font-weight: bold; color :white; position: absolute; border-radius: 150px; text-align: center; padding-top: 5px;">
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="float:left; margin-left:20px;margin-top:5px; width:500px; height:30px; font-size:14px;">
+                <button ng-click="registerSchedule()" type="button" class="btn btn-primary">PRE-REGISTER WITH THIS SCHEDULE</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿
+<script>
+    $(document).ready(function () {
+        var tosend = "";
+        
+        var arr = ["sun","mon","tue","wed","thu","fri","sat"];
+
+        for (var i = 0; i < arr.length ; ++i) {
+            var toselect = "#" + arr[i];
+            var day = arr[i];
+            var count = 0;
+            $(toselect).each(function () {
+                var chkbox = $(this).find("input");
+                while (count < 3) {
+                    if (chkbox.is(":checked")) {
+                        tosend += day + chkbox.attr('class') + ",1;";
+                        count++;
+                    } 
+                    chkbox = $(chkbox).next();
+                }
+            });
+        }
+        
+    });
+</script>
+<div>
+    <table id=" constrainttable">
+        <tr id="header"><td></td><th>A.M.</th><th>NOON</th><th>P.M.</th></tr>
+        <tr id="sun"><td>SUN</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="mon"><td>MON</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="tue"><td>TUE</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="wed"><td>WED</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="thu"><td>THU</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="fri"><td>FRI</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+        <tr id="sat"><td>SAT</td><td><input type="checkbox" class="am"></td><td><input type="checkbox" class="noon"></td><td><input type="checkbox" class="pm"></td></tr>
+
+    </table>
+</div>

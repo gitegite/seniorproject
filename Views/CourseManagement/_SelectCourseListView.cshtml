@@ -1,0 +1,11 @@
+﻿@using SeniorProject.Models
+@model List<StudentCourse>
+
+<table border="1">
+    @foreach (StudentCourse currentcourse in Model)
+    {
+        <tr>
+            <td>@currentcourse.CourseCode<br />@currentcourse.CourseName</td>
+        </tr>
+    }
+</table>

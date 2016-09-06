@@ -1,0 +1,81 @@
+﻿@using SeniorProject.Models
+@model StudentCourse
+
+<script>
+    var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+    function returndays(i) {
+        var result = day[i];
+        return result;
+    }
+</script>
+
+
+<label>CourseName: @Model.Sections[0].CourseName</label>
+<br />
+<br />
+<table border="1">
+    <tr align="center">
+        <th style="text-align:center">Section</th>
+        <th style="text-align:center">Day</th>
+        <th style="text-align:center">Time</th>
+        <th style="text-align:center">Instructor</th>
+        <th style="text-align:center">Midterm</th>
+        <th style="text-align:center">Final</th>
+        <th style="text-align:center">Remark</th>
+    </tr>
+    @foreach (StudentSection item in Model.Sections)
+    {
+    <tr align="center">
+        <td>@item.SectionNumber</td>
+        <td>
+            @foreach (StudentSectionDetail detail in item.SectionDetails)
+            {
+                if(@detail.DayNum == 1){
+                    @Html.DisplayText("Sun");
+                }
+                else if(@detail.DayNum == 2)
+                {
+                    @Html.DisplayText("Mon");
+                }
+                else if (@detail.DayNum == 3)
+                {
+                    @Html.DisplayText("Tue");
+                }
+                else if (@detail.DayNum == 4)
+                {
+                    @Html.DisplayText("Wed");
+                }
+                else if (@detail.DayNum == 5)
+                {
+                    @Html.DisplayText("Thur");
+                }
+                else if (@detail.DayNum == 6)
+                {
+                    @Html.DisplayText("Fri");
+                }
+                else
+                {
+                    @Html.DisplayText("Sat");
+                }
+            }
+        </td>
+        <td>
+            @foreach (StudentSectionDetail detail in item.SectionDetails)
+            {
+                  @(detail.StartTime + " - " + detail.EndTime)<br />;
+            }
+        </td>
+        <td>
+            @foreach (StudentSectionDetail detail in item.SectionDetails)
+            {
+            @(detail.Instructor)<br />;
+            }
+        </td>
+        <td>@(item.MidtermDate)<br />@(item.MidtermStartTime + " - " + item.MidtermEndTime)</td>
+        <td>@item.FinalDate<br />@(item.FinalStartTime + " - " + item.FinalEndTime)</td>
+        <td>@item.Remark</td>
+    </tr>
+    }
+
+</table>
+

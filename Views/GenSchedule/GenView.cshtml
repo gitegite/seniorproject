@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+@using SeniorProject.Models
+@model TimetableList
+
+<!DOCTYPE html>
+
+<html>
+<head><title>Log in</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script>
+        var day = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        function returndays(i) {
+            var result = day[i];
+            document.write(result);
+        }
+        var count = 0;
+
+    </script>
+    <div class="container">
+        <table border="1">
+            @{string planGod = "";}
+            @{string scheGod = "";}
+            @{List<String> check = new List<String>();}
+            @{List<short> sections = new List<short>();}
+            @foreach (Timetable item in Model.getTimetable())
+            {
+                <tr>
+                    <td>
+                        <table border="1">
+
+                            @foreach (StudentSection s in item.getT())
+                            {
+                                @(s.CourseName +" " + s.SectionNumber)<br />
+                                if (!check.Contains(s.CourseCode))
+                                  {
+                                      check.Add(s.CourseCode);
+                                      planGod += s.CourseCode + ";";
+                                      scheGod += s.CourseCode + "," + s.SectionNumber + ";";
+                                  }
+                                
+                                foreach (StudentSectionDetail sd in s.SectionDetails)
+                                {
+                                <tr>
+                                    <td>@sd.CourseCode</td>
+
+                                    <td>@sd.CourseName</td>
+                                    <td>@s.SectionNumber</td>
+                                    <td>
+                                        <script>returndays(@sd.DayNum-1)</script>
+                                    </td>
+                                    <td>@sd.StartTime</td>
+                                    <td>@sd.EndTime</td>
+                                </tr>
+                                }
+                            }
+                        </table>
+                    </td>
+                    <td>
+                        @{
+                            
+                        }
+                        <div result>
+                            <button>saved</button>
+                            @Ajax.ActionLink("Click to Saveplan", "savePlan2", null ,
+new {planList = @planGod.Substring(0, @planGod.Length - 1), scheduleList = @scheGod.Substring(0, @scheGod.Length - 1) },
+                                 new AjaxOptions
+                                 {
+                                     UpdateTargetId = "result",
+                                     HttpMethod = "GET",
+                                     InsertionMode = InsertionMode.InsertAfter
+                                 })
+                        </div>
+                    </td>
+                    @{planGod = "";}
+                    @{scheGod = "";}
+                    @{check.Clear();}
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

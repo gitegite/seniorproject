@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-SeniorProject-20150825054134.mdf;Initial Catalog=aspnet-SeniorProject-20150825054134;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Guide\\Desktop\\SENIORSSSSSSSS\\SeniorProject\\SeniorProject\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="SeniorBroConnectionString-Web.config Connection String" description="SeniorBroConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=opk64kkdi2.database.windows.net;Initial Catalog=SeniorBro;User ID=parazo;Password=Parazuay716" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Guide\\Desktop\\SENIORSSSSSSSS\\SeniorProject\\SeniorProject\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SeniorBroConnectionString']/@connectionString" />
+  </parameter>
+</parameters>
